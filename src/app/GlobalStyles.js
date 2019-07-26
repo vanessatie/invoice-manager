@@ -8,6 +8,6 @@ html, body {
     margin: 0;
 }
 body {
-    font-family: sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 `;
