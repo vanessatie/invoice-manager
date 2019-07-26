@@ -38,7 +38,26 @@ function Card({ cardData, ...props }) {
     );
   }
 
-  return <>{cardData.map(renderCard)}</>;
+  function sortDate(a, b) {
+    if (a.date < b.date) {
+      return 1;
+    }
+
+    if (a.date > b.date) {
+      return -1;
+    }
+
+    return 0;
+  }
+
+  return (
+    <>
+      {cardData
+        .slice()
+        .sort(sortDate)
+        .map(renderCard)}
+    </>
+  );
 }
 
 Card.propTypes = {
