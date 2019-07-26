@@ -1,0 +1,22 @@
+[
+  {
+    "date": "12-03-2019",
+    "company": "TestComp",
+    "amount": 234.87
+  },
+  {
+    "date": "05-03-2019",
+    "company": "TestComp2",
+    "amount": 54.79
+  },
+  {
+    "date": "25-03-2019",
+    "company": "Noch eine Company",
+    "amount": 67.15
+  },
+  {
+    "date": "25-03-2019",
+    "company": "Noch eine ganz ganz große Company",
+    "amount": 1076.65
+  }
+]
