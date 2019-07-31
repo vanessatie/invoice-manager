@@ -4,7 +4,6 @@ import Header from "../components/Header";
 import Card from "../components/Card";
 
 function Cards({ cards }) {
-  console.log(cards);
   return (
     <>
       <Header title="Your Invoices" />
