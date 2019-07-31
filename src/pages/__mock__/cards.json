@@ -1,26 +1,26 @@
 [
   {
-    "date": "12-03-2019",
+    "date": "2019-03-12",
     "company": "TestComp",
     "amount": 234.87
   },
   {
-    "date": "05-03-2019",
+    "date": "2019-03-05",
     "company": "TestComp2",
     "amount": 54.79
   },
   {
-    "date": "25-03-2019",
+    "date": "2019-03-25",
     "company": "Noch eine Company",
     "amount": 67.15
   },
   {
-    "date": "25-03-2019",
+    "date": "2019-03-25",
     "company": "Noch eine ganz ganz große Company",
     "amount": 1076.65
   },
   {
-    "date": "21-04-2019",
+    "date": "2019-04-21",
     "company": "Noch eine ganz ganz große Company",
     "amount": 1076.65
   }
