@@ -1,18 +1,24 @@
 import React from "react";
 import GlobalStyles from "./GlobalStyles";
-import Header from "../components/Header";
-import Card from "../components/Card";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Cards from "../pages/Cards";
+import Form from "../pages/Form";
 import cardData from "../pages/__mock__/cards.json";
 
 console.log(cardData);
 
 function App() {
   return (
-    <>
+    <Router>
       <GlobalStyles />
-      <Header title="TestTitle" />
-      <Card cardData={cardData} />
-    </>
+      <Switch>
+        <Route path="/add" render={props => <Form {...props} />} />
+        <Route
+          path="/"
+          render={props => <Cards cardData={cardData} {...props} />}
+        />
+      </Switch>
+    </Router>
   );
 }
 
