@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Button from "../components/Button";
 
@@ -27,26 +28,46 @@ const ButtonGroup = styled.div`
   justify-content: flex-end;
 `;
 
-function Form({ history }) {
+function Form({ history, onCreate }) {
   function handleCancel() {
     history.push("/");
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const card = {
+      date: form.inputDate.value,
+      company: form.inputName.value,
+      amount: form.inputAmount.value
+    };
+    onCreate(card);
+    history.replace("/");
   }
   return (
     <>
       <Header title="Add Invoice" />
-      <StyledForm>
+      <StyledForm onSubmit={handleSubmit}>
         <StyledLabel>
           Eingangsdatum:
-          <StyledInput type="date" placeholder="Bitte Datum auswählen" />
+          <StyledInput
+            type="date"
+            name="inputDate"
+            placeholder="Bitte Datum auswählen"
+          />
         </StyledLabel>
 
         <StyledLabel>
           Rechnungsaussteller:
-          <StyledInput placeholder="z.B. Holzland GmbH" />
+          <StyledInput name="inputName" placeholder="z.B. Holzland GmbH" />
         </StyledLabel>
         <StyledLabel>
           Rechnungsbetrag:
-          <StyledInput type="number" placeholder="z.B. 123.45" />
+          <StyledInput
+            name="inputAmount"
+            type="number"
+            placeholder="z.B. 123.45"
+          />
         </StyledLabel>
         <ButtonGroup>
           <Button onClick={handleCancel} kind="cancel">
@@ -58,5 +79,9 @@ function Form({ history }) {
     </>
   );
 }
+
+Form.propTypes = {
+  onCreate: PropTypes.func
+};
 
 export default Form;

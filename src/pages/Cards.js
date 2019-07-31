@@ -1,15 +1,20 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Card from "../components/Card";
-import cardData from "../pages/__mock__/cards.json";
 
-function Cards() {
+function Cards({ cards }) {
+  console.log(cards);
   return (
     <>
       <Header title="Your Invoices" />
-      <Card cardData={cardData} />
+      <Card cardData={cards} />
     </>
   );
 }
+
+Cards.propTypes = {
+  cards: PropTypes.array
+};
 
 export default Cards;
