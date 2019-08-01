@@ -18,11 +18,11 @@ const StyledLogo = styled.img`
   margin: 10px;
 `;
 
-function Header(props) {
+function Header({ title }) {
   return (
     <StyledHeader>
       <StyledLogo src="icon_file.png" />
-      <Headline>{props.title}</Headline>
+      <Headline>{title}</Headline>
     </StyledHeader>
   );
 }
