@@ -11,5 +11,6 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: #2d3142;
     font-size: 0.8rem;
+    margin-bottom: 60px;
 }
 `;

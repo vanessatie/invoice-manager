@@ -5,6 +5,7 @@ import Cards from "../pages/Cards";
 import Form from "../pages/Form";
 import { getFromLocal, setToLocal } from "../services";
 import uuid from "uuid/v1";
+import Footer from "../components/Footer";
 
 function App() {
   const [cards, setCards] = React.useState(getFromLocal("cards") || []);
@@ -26,6 +27,7 @@ function App() {
         />
         <Route path="/" render={props => <Cards cards={cards} {...props} />} />
       </Switch>
+      <Footer />
     </Router>
   );
 }

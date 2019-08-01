@@ -35,15 +35,18 @@ function Form({ history, onCreate }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+
     const form = event.target;
     const card = {
       date: form.inputDate.value,
       company: form.inputName.value,
       amount: form.inputAmount.value
     };
+
     onCreate(card);
     history.replace("/");
   }
+
   return (
     <>
       <Header title="Add Invoice" />
@@ -54,6 +57,7 @@ function Form({ history, onCreate }) {
             type="date"
             name="inputDate"
             placeholder="Bitte Datum auswählen"
+            required
           />
         </StyledLabel>
 
@@ -66,14 +70,15 @@ function Form({ history, onCreate }) {
           <StyledInput
             name="inputAmount"
             type="number"
+            step="0.01"
             placeholder="z.B. 123.45"
           />
         </StyledLabel>
         <ButtonGroup>
           <Button onClick={handleCancel} kind="cancel">
-            Cancel
+            Abbrechen
           </Button>
-          <Button kind="submit">Add</Button>
+          <Button kind="submit">Hinzufügen</Button>
         </ButtonGroup>
       </StyledForm>
     </>
