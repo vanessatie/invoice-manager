@@ -26,7 +26,7 @@ const StyledAmount = styled.div`
   justify-self: end;
 `;
 
-function Card({ cardData, ...props }) {
+function Card({ cardData, image, ...props }) {
   function renderCard(cardData) {
     return (
       <StyledCard key={Math.random(10000)} {...props}>
@@ -37,7 +37,7 @@ function Card({ cardData, ...props }) {
       </StyledCard>
     );
   }
-
+  console.log({ image });
   function sortDate(a, b) {
     if (a.date < b.date) {
       return 1;

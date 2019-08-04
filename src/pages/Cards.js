@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Card from "../components/Card";
 
-function Cards({ cards }) {
+function Cards({ cards, image }) {
+  console.log({ image });
   return (
     <>
       <Header title="Your Invoices" />

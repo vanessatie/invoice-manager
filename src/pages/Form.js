@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Button from "../components/Button";
+import axios from "axios";
 
 const StyledForm = styled.form`
   padding: 10px;
@@ -28,7 +29,11 @@ const ButtonGroup = styled.div`
   justify-content: flex-end;
 `;
 
-function Form({ history, onCreate }) {
+const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
+const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
+
+function Form({ history, onCreate, upload }) {
+  const [image, setImage] = React.useState("");
   function handleCancel() {
     history.push("/");
   }
@@ -46,6 +51,25 @@ function Form({ history, onCreate }) {
     onCreate(card);
     history.replace("/");
   }
+  function upload(event) {
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`;
+
+    const formData = new FormData();
+    formData.append("file", event.target.files[0]);
+    formData.append("upload_preset", PRESET);
+
+    axios
+      .post(url, formData, {
+        headers: {
+          "Content-type": "multipart/form-data"
+        }
+      })
+      .then(onImageSave)
+      .catch(err => console.error(err));
+  }
+  function onImageSave(response) {
+    setImage(response.data.url);
+  }
 
   return (
     <>
@@ -60,7 +84,6 @@ function Form({ history, onCreate }) {
             required
           />
         </StyledLabel>
-
         <StyledLabel>
           Rechnungsaussteller:
           <StyledInput name="inputName" placeholder="z.B. Holzland GmbH" />
@@ -73,6 +96,16 @@ function Form({ history, onCreate }) {
             step="0.01"
             placeholder="z.B. 123.45"
           />
+        </StyledLabel>
+        <StyledLabel>
+          Bild hinzufügen:
+          <div>
+            {image ? (
+              <img src={image} alt="" style={{ width: "50%" }} />
+            ) : (
+              <input type="file" name="file" onChange={upload} multiple />
+            )}
+          </div>
         </StyledLabel>
         <ButtonGroup>
           <Button onClick={handleCancel} kind="cancel">

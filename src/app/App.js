@@ -17,6 +17,10 @@ function App() {
     setCards([newCard, ...cards]);
   }
 
+  function handleUpload(image) {
+    console.log(image);
+  }
+
   return (
     <Router>
       <GlobalStyles />
@@ -25,9 +29,13 @@ function App() {
           path="/add"
           render={props => <Form onCreate={handleCreate} {...props} />}
         />
-        <Route path="/" render={props => <Cards cards={cards} {...props} />} />
+        <Route
+          path="/"
+          render={props => (
+            <Cards cards={cards} image={handleUpload} {...props} />
+          )}
+        />
       </Switch>
-
       <Footer />
     </Router>
   );
