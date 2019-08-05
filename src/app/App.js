@@ -27,7 +27,6 @@ function App() {
         />
         <Route path="/" render={props => <Cards cards={cards} {...props} />} />
       </Switch>
-
       <Footer />
     </Router>
   );

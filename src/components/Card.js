@@ -4,7 +4,9 @@ import PropTypes from "prop-types";
 
 const StyledCard = styled.div`
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto;
+
   line-height: 1.5;
   padding: 10px;
   margin: 15px;
@@ -26,14 +28,32 @@ const StyledAmount = styled.div`
   justify-self: end;
 `;
 
+const StyledImage = styled.img`
+  max-height: 40px;
+  max-width: 40px;
+  align-self: center;
+`;
+
 function Card({ cardData, ...props }) {
   function renderCard(cardData) {
     return (
       <StyledCard key={Math.random(10000)} {...props}>
-        <StyledDate>{cardData.date}</StyledDate>
-        <br />
-        <StyledCompany>{cardData.company}</StyledCompany>
-        <StyledAmount>{cardData.amount} €</StyledAmount>
+        <StyledImage
+          src={
+            cardData.file
+              ? cardData.file
+              : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2000px-No_image_available.svg.png"
+          }
+          alt={cardData.company}
+        />
+        <StyledDate>
+          {cardData.date}
+          <StyledCompany>{cardData.company}</StyledCompany>
+        </StyledDate>
+        <StyledAmount>
+          <br />
+          {cardData.amount} €
+        </StyledAmount>
       </StyledCard>
     );
   }
