@@ -38,8 +38,14 @@ function Card({ cardData, ...props }) {
   function renderCard(cardData) {
     return (
       <StyledCard key={Math.random(10000)} {...props}>
-        <StyledImage src={cardData.file} alt={cardData.company} />
-        {/* <StyledDate>{cardData.date}</StyledDate> */}
+        <StyledImage
+          src={
+            cardData.file
+              ? cardData.file
+              : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2000px-No_image_available.svg.png"
+          }
+          alt={cardData.company}
+        />
         <StyledDate>
           {cardData.date}
           <StyledCompany>{cardData.company}</StyledCompany>

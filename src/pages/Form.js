@@ -16,12 +16,26 @@ const StyledInput = styled.input`
   border-radius: 3px;
   background-color: white;
   font-family: Arial, Helvetica, sans-serif;
+  color: #2d3142;
   margin-top: 5px;
+  padding: 3px;
+  padding-left: 5px;
+  ::placeholder {
+    color: #bfc0c0;
+  }
+  input[type="file"] {
+    display: none;
+  }
 `;
 
 const StyledLabel = styled.label`
   margin-top: 15px;
-  font-size: 1rem;
+`;
+
+const StyledImage = styled.img`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 const ButtonGroup = styled.div`
@@ -71,7 +85,23 @@ function Form({ history, onCreate, upload }) {
   function onImageSave(response) {
     setImage(response.data.url);
   }
-  console.log(image);
+
+  function getToday() {
+    let today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth() + 1;
+    let year = today.getFullYear();
+
+    if (day < 10) {
+      day = "0" + day;
+    }
+    if (month < 10) {
+      month = "0" + month;
+    }
+
+    today = year + "-" + month + "-" + day;
+    return today;
+  }
 
   return (
     <>
@@ -81,8 +111,8 @@ function Form({ history, onCreate, upload }) {
           Eingangsdatum:
           <StyledInput
             type="date"
+            defaultValue={getToday()}
             name="inputDate"
-            placeholder="Bitte Datum auswählen"
             required
           />
         </StyledLabel>
@@ -90,22 +120,28 @@ function Form({ history, onCreate, upload }) {
           Rechnungsaussteller:
           <StyledInput name="inputName" placeholder="z.B. Holzland GmbH" />
         </StyledLabel>
-        <StyledLabel>
+        <StyledLabel htmlFor="amount">
           Rechnungsbetrag:
           <StyledInput
             name="inputAmount"
             type="number"
             step="0.01"
             placeholder="z.B. 123.45"
+            id="amount"
           />
         </StyledLabel>
-        <StyledLabel>
+        <StyledLabel htmlFor="upload" className="fileUpload">
           Bild hinzufügen:
           <div>
             {image ? (
-              <img src={image} alt="" style={{ width: "50%" }} />
+              <StyledImage src={image} alt="" />
             ) : (
-              <input type="file" name="file" onChange={upload} multiple />
+              <StyledInput
+                type="file"
+                name="file"
+                id="upload"
+                onChange={upload}
+              />
             )}
           </div>
         </StyledLabel>
