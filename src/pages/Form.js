@@ -45,7 +45,8 @@ function Form({ history, onCreate, upload }) {
     const card = {
       date: form.inputDate.value,
       company: form.inputName.value,
-      amount: form.inputAmount.value
+      amount: form.inputAmount.value,
+      file: image
     };
 
     onCreate(card);
@@ -70,6 +71,7 @@ function Form({ history, onCreate, upload }) {
   function onImageSave(response) {
     setImage(response.data.url);
   }
+  console.log(image);
 
   return (
     <>
