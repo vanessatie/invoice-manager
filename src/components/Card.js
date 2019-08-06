@@ -6,10 +6,10 @@ const StyledCard = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: auto;
-
+  align-items: center;
   line-height: 1.5;
   padding: 10px;
-  margin: 15px;
+  margin: 20px;
   border: 1px solid #bfc0c0;
   border-radius: 2px;
   box-shadow: 2px 2px 0px #bfc0c0;

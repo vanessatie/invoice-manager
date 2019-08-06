@@ -130,6 +130,7 @@ function Form({ history, onCreate }) {
             step="0.01"
             placeholder="z.B. 123.45"
             id="amount"
+            required
           />
         </StyledLabel>
         <StyledLabel className="fileUpload">

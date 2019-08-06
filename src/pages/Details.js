@@ -65,7 +65,7 @@ function Details({ cards, match, history }) {
         />
         <ButtonGroup>
           <Button onClick={handleBack} kind="submit">
-            Zurück
+            Zur Übersicht
           </Button>
         </ButtonGroup>
       </StyledContainer>

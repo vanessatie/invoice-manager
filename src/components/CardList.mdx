@@ -1,0 +1,22 @@
+---
+name: CardList
+menu: Components
+---
+
+import { Props, Playground } from "docz";
+import CardList from "./CardList";
+import GlobalStyles from "../app/GlobalStyles";
+import App from "../app/App.js";
+import mockData from "../pages/__mock__/cards.json";
+
+<GlobalStyles />
+
+# Card
+
+<Props of={CardList} />
+
+## Basic Usage
+
+<Playground>
+  <CardList cards={mockData} />
+</Playground>
