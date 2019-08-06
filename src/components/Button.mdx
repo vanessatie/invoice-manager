@@ -1,0 +1,23 @@
+---
+name: Button
+menu: Components
+---
+
+import { Props, Playground } from "docz";
+import Button from "./Button";
+import GlobalStyles from "../app/GlobalStyles";
+import App from "../app/App.js";
+
+<GlobalStyles />
+
+# Buttons
+
+<Props of={Button} />
+
+## Basic Usage
+
+<Playground>
+  <Button kind="submit">Submit</Button>
+  <Button kind="cancel">Cancel</Button>
+  <Button kind="neutral">Neutral</Button>
+</Playground>

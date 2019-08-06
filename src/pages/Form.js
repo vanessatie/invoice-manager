@@ -60,6 +60,7 @@ function Form({ history, onCreate }) {
     const card = {
       date: form.inputDate.value,
       company: form.inputName.value,
+      project: form.inputProject.value,
       amount: form.inputAmount.value,
       file: image
     };
@@ -123,6 +124,15 @@ function Form({ history, onCreate }) {
           <StyledInput name="inputName" placeholder="z.B. Holzland GmbH" />
         </StyledLabel>
         <StyledLabel>
+          Projekt/ Kommission:
+          <StyledInput
+            type="textarea"
+            rows="8"
+            placeholder="Projektname"
+            name="inputProject"
+          />
+        </StyledLabel>
+        <StyledLabel>
           Rechnungsbetrag:
           <StyledInput
             name="inputAmount"
@@ -133,6 +143,7 @@ function Form({ history, onCreate }) {
             required
           />
         </StyledLabel>
+
         <StyledLabel className="fileUpload">
           Bild hinzufügen:
           <div>

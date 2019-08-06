@@ -20,6 +20,11 @@ const StyledCompany = styled.div`
   font-weight: bold;
 `;
 
+const StyledProject = styled.div`
+  justify-self: flex-start;
+  padding: 15px;
+`;
+
 const StyledAmount = styled.div`
   justify-self: flex-end;
   font-weight: bold;
@@ -53,6 +58,7 @@ function Details({ cards, match, history }) {
         <StyledDate>{card.date}</StyledDate>
 
         <StyledCompany>{card.company}</StyledCompany>
+        <StyledProject>{card.project}</StyledProject>
         <StyledAmount>{card.amount} €</StyledAmount>
         <br />
         <StyledImage
