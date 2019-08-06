@@ -34,57 +34,36 @@ const StyledImage = styled.img`
   align-self: center;
 `;
 
-function Card({ cardData, ...props }) {
-  function renderCard(cardData) {
-    //console.log(cardData._id);
-    return (
-      <StyledCard key={cardData._id} {...props}>
-        <StyledImage
-          src={
-            cardData.file
-              ? cardData.file
-              : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2000px-No_image_available.svg.png"
-          }
-          alt={cardData.company}
-        />
-        <StyledDate>
-          {cardData.date}
-          <StyledCompany>{cardData.company}</StyledCompany>
-        </StyledDate>
-        <StyledAmount>
-          <br />
-          {cardData.amount} €
-        </StyledAmount>
-      </StyledCard>
-    );
-  }
-
-  function sortDate(a, b) {
-    if (a.date < b.date) {
-      return 1;
-    }
-
-    if (a.date > b.date) {
-      return -1;
-    }
-
-    return 0;
-  }
-
+function Card({ _id, date, file, company, amount, onClick, ...props }) {
   return (
-    <>
-      {cardData
-        .slice()
-        .sort(sortDate)
-        .map(renderCard)}
-    </>
+    <StyledCard key={_id} onClick={onClick} {...props}>
+      <StyledImage
+        src={
+          file
+            ? file
+            : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2000px-No_image_available.svg.png"
+        }
+        alt={company}
+      />
+      <StyledDate>
+        {date}
+        <StyledCompany>{company}</StyledCompany>
+      </StyledDate>
+      <StyledAmount>
+        <br />
+        {amount} €
+      </StyledAmount>
+    </StyledCard>
   );
 }
 
 Card.propTypes = {
-  date: PropTypes.instanceOf(Date),
+  date: PropTypes.string,
   company: PropTypes.string,
-  amount: PropTypes.number
+  amount: PropTypes.number,
+  _id: PropTypes.string,
+  file: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 export default Card;

@@ -122,7 +122,7 @@ function Form({ history, onCreate }) {
           Rechnungsaussteller:
           <StyledInput name="inputName" placeholder="z.B. Holzland GmbH" />
         </StyledLabel>
-        <StyledLabel htmlFor="amount">
+        <StyledLabel>
           Rechnungsbetrag:
           <StyledInput
             name="inputAmount"
@@ -132,7 +132,7 @@ function Form({ history, onCreate }) {
             id="amount"
           />
         </StyledLabel>
-        <StyledLabel htmlFor="upload" className="fileUpload">
+        <StyledLabel className="fileUpload">
           Bild hinzufügen:
           <div>
             {image ? (
