@@ -1,26 +1,23 @@
 ---
-name: Card
+name: Button
 menu: Components
 ---
 
 import { Props, Playground } from "docz";
-import Card from "./Card";
+import Button from "./Button";
 import GlobalStyles from "../app/GlobalStyles";
 import App from "../app/App.js";
 
 <GlobalStyles />
 
-# Card
+# Buttons
 
-<Props of={Card} />
+<Props of={Button} />
 
 ## Basic Usage
 
 <Playground>
-  <Card
-    date="2019/09/10"
-    company="Holz GmbH"
-    amount="100"
-    onClick={() => console.log("clicked")}
-  />
+  <Button kind="submit">Submit</Button>
+  <Button kind="cancel">Cancel</Button>
+  <Button kind="neutral">Neutral</Button>
 </Playground>

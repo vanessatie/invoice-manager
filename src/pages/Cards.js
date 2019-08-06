@@ -1,19 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Header from "../components/Header";
-import Card from "../components/Card";
+import CardList from "../components/CardList";
 
-function Cards({ cards }) {
+function Cards({ cards, history }) {
+  function handleCardClick(card) {
+    history.push(`/detail/${card._id}`);
+  }
+
   return (
     <>
       <Header title="Your Invoices" />
-      <Card cardData={cards} />
+      <CardList cards={cards} onCardClick={handleCardClick} />
     </>
   );
 }
 
 Cards.propTypes = {
-  cards: PropTypes.array
+  cards: PropTypes.array.isRequired
 };
 
 export default Cards;

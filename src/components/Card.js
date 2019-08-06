@@ -6,10 +6,10 @@ const StyledCard = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: auto;
-
+  align-items: center;
   line-height: 1.5;
   padding: 10px;
-  margin: 15px;
+  margin: 20px;
   border: 1px solid #bfc0c0;
   border-radius: 2px;
   box-shadow: 2px 2px 0px #bfc0c0;
@@ -34,56 +34,36 @@ const StyledImage = styled.img`
   align-self: center;
 `;
 
-function Card({ cardData, ...props }) {
-  function renderCard(cardData) {
-    return (
-      <StyledCard key={Math.random(10000)} {...props}>
-        <StyledImage
-          src={
-            cardData.file
-              ? cardData.file
-              : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2000px-No_image_available.svg.png"
-          }
-          alt={cardData.company}
-        />
-        <StyledDate>
-          {cardData.date}
-          <StyledCompany>{cardData.company}</StyledCompany>
-        </StyledDate>
-        <StyledAmount>
-          <br />
-          {cardData.amount} €
-        </StyledAmount>
-      </StyledCard>
-    );
-  }
-
-  function sortDate(a, b) {
-    if (a.date < b.date) {
-      return 1;
-    }
-
-    if (a.date > b.date) {
-      return -1;
-    }
-
-    return 0;
-  }
-
+function Card({ _id, date, file, company, amount, onClick, ...props }) {
   return (
-    <>
-      {cardData
-        .slice()
-        .sort(sortDate)
-        .map(renderCard)}
-    </>
+    <StyledCard key={_id} onClick={onClick} {...props}>
+      <StyledImage
+        src={
+          file
+            ? file
+            : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2000px-No_image_available.svg.png"
+        }
+        alt={company}
+      />
+      <StyledDate>
+        {date}
+        <StyledCompany>{company}</StyledCompany>
+      </StyledDate>
+      <StyledAmount>
+        <br />
+        {amount} €
+      </StyledAmount>
+    </StyledCard>
   );
 }
 
 Card.propTypes = {
-  date: PropTypes.instanceOf(Date),
+  date: PropTypes.string,
   company: PropTypes.string,
-  amount: PropTypes.number
+  amount: PropTypes.number,
+  _id: PropTypes.string,
+  file: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 export default Card;

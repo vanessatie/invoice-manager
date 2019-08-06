@@ -6,8 +6,11 @@ import { Link } from "react-router-dom";
 const color = {
   cancel: `
   background-color: #ef8354;
+  color: white;
   `,
-  submit: `background-color: #79C99E;`,
+  submit: `background-color: #79C99E;
+  
+  `,
   neutral: `background-color: #bfc0c0;`
 };
 
@@ -18,7 +21,7 @@ const StyledButton = styled.button`
   margin: 5px;
   padding: 5px;
   height: 30px;
-  width: 80px;
+  width: auto;
   ${getColor};
   &:disabled {
     background-color: #bfc0c0;
