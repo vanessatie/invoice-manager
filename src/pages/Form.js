@@ -33,7 +33,7 @@ const StyledLabel = styled.label`
 `;
 
 const StyledImage = styled.img`
-  width: 100%;
+  width: 50%;
   display: flex;
   justify-content: center;
 `;
@@ -46,8 +46,9 @@ const ButtonGroup = styled.div`
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
-function Form({ history, onCreate, upload }) {
+function Form({ history, onCreate }) {
   const [image, setImage] = React.useState("");
+
   function handleCancel() {
     history.push("/");
   }
@@ -63,10 +64,10 @@ function Form({ history, onCreate, upload }) {
       file: image
     };
 
-    onCreate(card);
-    history.replace("/");
+    onCreate(card, history);
   }
-  function upload(event) {
+
+  function uploadImage(event) {
     const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`;
 
     const formData = new FormData();
@@ -112,6 +113,7 @@ function Form({ history, onCreate, upload }) {
           <StyledInput
             type="date"
             defaultValue={getToday()}
+            max={getToday()}
             name="inputDate"
             required
           />
@@ -140,7 +142,7 @@ function Form({ history, onCreate, upload }) {
                 type="file"
                 name="file"
                 id="upload"
-                onChange={upload}
+                onChange={uploadImage}
               />
             )}
           </div>

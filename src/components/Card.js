@@ -36,8 +36,9 @@ const StyledImage = styled.img`
 
 function Card({ cardData, ...props }) {
   function renderCard(cardData) {
+    //console.log(cardData._id);
     return (
-      <StyledCard key={Math.random(10000)} {...props}>
+      <StyledCard key={cardData._id} {...props}>
         <StyledImage
           src={
             cardData.file

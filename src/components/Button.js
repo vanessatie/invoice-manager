@@ -18,7 +18,7 @@ const StyledButton = styled.button`
   margin: 5px;
   padding: 5px;
   height: 30px;
-  width: 80px;
+  width: auto;
   ${getColor};
   &:disabled {
     background-color: #bfc0c0;
