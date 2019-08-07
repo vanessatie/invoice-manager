@@ -3,14 +3,17 @@ import Dinero from "dinero.js";
 import styled from "styled-components";
 
 const StyledSum = styled.div`
-  display: flex;
-  flex-direction: flex-end;
+  text-align: end;
   font-weight: bold;
+  text-decoration: underline;
+  line-height: 1.5;
+  margin-right: 20px;
 `;
 
 const StyledTax = styled.div`
-  display: flex;
-  flex-direction: flex-end;
+  text-align: end;
+  line-height: 1.5;
+  margin-right: 20px;
 `;
 
 export function SumCalculation({ cards }) {
@@ -21,7 +24,7 @@ export function SumCalculation({ cards }) {
     }, Dinero({ amount: 0 }));
   let sum = total.toFormat("$0,0.00");
 
-  return <StyledSum>{sum}</StyledSum>;
+  return <StyledSum>Summe: {sum}</StyledSum>;
 }
 
 export function TaxCalculation({ cards }) {
@@ -33,7 +36,7 @@ export function TaxCalculation({ cards }) {
     .multiply(0.19);
   let totalTax = tax.toFormat("$0,0.00");
 
-  return <StyledTax>{totalTax}</StyledTax>;
+  return <StyledTax>MwSt.: {totalTax}</StyledTax>;
 }
 
 export default SumCalculation;
