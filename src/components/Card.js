@@ -51,7 +51,7 @@ function Card({ _id, date, file, company, amount, onClick, ...props }) {
       </StyledDate>
       <StyledAmount>
         <br />
-        {amount} €
+        {amount.replace(".", ",")} €
       </StyledAmount>
     </StyledCard>
   );

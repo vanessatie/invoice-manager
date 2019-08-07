@@ -59,7 +59,7 @@ function Details({ cards, match, history }) {
 
         <StyledCompany>{card.company}</StyledCompany>
         <StyledProject>{card.project}</StyledProject>
-        <StyledAmount>{card.amount} €</StyledAmount>
+        <StyledAmount>{card.amount.replace(".", ",")} €</StyledAmount>
         <br />
         <StyledImage
           src={
