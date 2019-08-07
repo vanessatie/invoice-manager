@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Header from "../components/Header";
 import CardList from "../components/CardList";
+import { SumCalculation, TaxCalculation } from "../components/Calculation";
 
 function Cards({ cards, history }) {
   function handleCardClick(card) {
@@ -12,6 +13,8 @@ function Cards({ cards, history }) {
     <>
       <Header title="Your Invoices" />
       <CardList cards={cards} onCardClick={handleCardClick} />
+      <TaxCalculation cards={cards} />
+      <SumCalculation cards={cards} />
     </>
   );
 }

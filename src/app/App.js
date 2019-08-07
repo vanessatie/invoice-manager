@@ -7,6 +7,11 @@ import { getFromLocal, setToLocal } from "../services";
 import uuid from "uuid/v1";
 import Footer from "../components/Footer";
 import Details from "../pages/Details";
+import Dinero from "dinero.js";
+import Calculation from "../components/Calculation";
+
+Dinero.defaultCurrency = "EUR";
+Dinero.globalLocale = "de-DE";
 
 function App() {
   const [cards, setCards] = React.useState(getFromLocal("cards") || []);
@@ -31,6 +36,10 @@ function App() {
         <Route
           path="/add"
           render={props => <Form onCreate={handleCreate} {...props} />}
+        />
+        <Route
+          path="/calcTest"
+          render={props => <Calculation cards={cards} {...props} />}
         />
 
         <Route path="/" render={props => <Cards cards={cards} {...props} />} />
