@@ -60,7 +60,7 @@ function Card({ _id, date, file, company, amount, onClick, ...props }) {
 Card.propTypes = {
   date: PropTypes.string,
   company: PropTypes.string,
-  amount: PropTypes.number,
+  amount: PropTypes.string,
   _id: PropTypes.string,
   file: PropTypes.string,
   onClick: PropTypes.func

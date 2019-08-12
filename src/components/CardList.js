@@ -21,9 +21,7 @@ const StyledDropDown = styled.select`
   font-size: 0.9rem;
 `;
 
-function CardList({ cards, onCardClick }) {
-  const [month, setMonth] = React.useState(defaultMonth());
-
+function CardList({ cards, onCardClick, month, onMonthSelect }) {
   function renderCard(card) {
     return <Card key={card._id} {...card} onClick={() => onCardClick(card)} />;
   }
@@ -40,31 +38,13 @@ function CardList({ cards, onCardClick }) {
     return 0;
   }
 
-  function defaultMonth() {
-    let today = new Date();
-    let currentMonth = today.getMonth() + 1;
-    return currentMonth;
-  }
-  function filterMonth(element) {
-    if (month < 10 && month > 0) {
-      const singleMonth = element.date.includes("-0" + month + "-");
-      return singleMonth;
-    } else {
-      return element.date.includes("-" + month + "-");
-    }
-  }
-
-  function handleMonthChange(event) {
-    setMonth(event.target.value);
-  }
-
   return (
     <StyledCardList>
       <StyledButton>
         <StyledDropDown
           name="month"
           value={month}
-          onChange={event => handleMonthChange(event)}
+          onChange={event => onMonthSelect(event)}
         >
           <option value="0">Gesamt</option>
           <option value="1">Januar</option>
@@ -83,16 +63,10 @@ function CardList({ cards, onCardClick }) {
         <i className="fas fa-chevron-down" />
       </StyledButton>
 
-      {month === "0"
-        ? cards
-            .slice()
-            .sort(sortDate)
-            .map(renderCard)
-        : cards
-            .filter(filterMonth)
-            .slice()
-            .sort(sortDate)
-            .map(renderCard)}
+      {cards
+        .slice()
+        .sort(sortDate)
+        .map(renderCard)}
     </StyledCardList>
   );
 }
