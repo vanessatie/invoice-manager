@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const StyledFooter = styled.div`
-  background-color: #4281a4;
+  background-color: white;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -12,11 +12,12 @@ const StyledFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  border-top: 1px solid #bfc0c0;
 `;
 
 const StyledIcon = styled.div`
   font-size: 1.5rem;
-  color: white;
+  color: #4281a4;
 `;
 
 function Footer() {
