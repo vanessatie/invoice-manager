@@ -107,7 +107,7 @@ function Form({ history, onCreate }) {
 
   return (
     <>
-      <Header title="Add Invoice" />
+      <Header title="Neue Rechnung" />
       <StyledForm onSubmit={handleSubmit}>
         <StyledLabel>
           Eingangsdatum:

@@ -11,7 +11,7 @@ function Cards({ cards, history }) {
 
   return (
     <>
-      <Header title="Your Invoices" />
+      <Header title="Rechnungen" />
       <CardList cards={cards} onCardClick={handleCardClick} />
       <TaxCalculation cards={cards} />
       <SumCalculation cards={cards} />

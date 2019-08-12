@@ -5,23 +5,27 @@ import { Link } from "react-router-dom";
 
 const color = {
   cancel: `
-  background-color: #ef8354;
-  color: white;
+  border-color: #ef8354;
+  color: #ef8354;
   `,
-  submit: `background-color: #79C99E;
-  
+  submit: `border-color: #79C99E;
+  color: #79C99E;
   `,
-  neutral: `background-color: #bfc0c0;`
+  neutral: `border-color: #bfc0c0;
+  color: #bfc0c0;`
 };
 
 const getColor = ({ kind = "neutral" }) => color[kind];
 
 const StyledButton = styled.button`
-  border-radius: 3px;
+  border-radius: 15px;
   margin: 5px;
-  padding: 5px;
-  height: 30px;
+  padding: 10px 20px 10px 20px;
+  height: auto;
   width: auto;
+  background-color: white;
+  font-weight: bold;
+  border: 1px solid;
   ${getColor};
   &:disabled {
     background-color: #bfc0c0;

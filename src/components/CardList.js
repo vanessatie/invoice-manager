@@ -18,10 +18,12 @@ const StyledDropDown = styled.select`
   justify-self: center;
   text-align: end;
   font-weight: bold;
+  font-size: 0.9rem;
 `;
 
 function CardList({ cards, onCardClick }) {
   const [month, setMonth] = React.useState(defaultMonth());
+
   function renderCard(card) {
     return <Card key={card._id} {...card} onClick={() => onCardClick(card)} />;
   }
@@ -45,9 +47,9 @@ function CardList({ cards, onCardClick }) {
   }
   function filterMonth(element) {
     if (month < 10 && month > 0) {
-      return element.date.includes("-0" + month + "-");
-    }
-    if (month > 9 && month < 13) {
+      const singleMonth = element.date.includes("-0" + month + "-");
+      return singleMonth;
+    } else {
       return element.date.includes("-" + month + "-");
     }
   }

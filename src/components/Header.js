@@ -11,11 +11,11 @@ const StyledHeader = styled.div`
 `;
 
 const Headline = styled.h1`
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 const StyledLogo = styled.img`
-  margin: 10px;
+  margin: 6px 15px 6px 15px;
 `;
 
 function Header({ title }) {
