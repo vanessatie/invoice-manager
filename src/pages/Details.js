@@ -51,6 +51,7 @@ function Details({ cards, match, history }) {
   function handleBack() {
     history.push("/");
   }
+
   return (
     <>
       <Header title="Details" />
