@@ -46,8 +46,9 @@ const StyledAlert = styled.div`
   font-weight: bold;
 `;
 
-function Details({ cards, match, history, onDelete }) {
+function Details({ cards, match, history, onDelete, onEdit }) {
   const [itemToDelete, setItemToDelete] = React.useState(null);
+
   const card = cards && cards.find(card => card._id === match.params.id);
   if (!card) {
     return null;
@@ -59,7 +60,6 @@ function Details({ cards, match, history, onDelete }) {
 
   function handleDelete(card) {
     setItemToDelete(card);
-    console.log(card);
   }
 
   function handleDeleteConfirmation() {
@@ -68,12 +68,17 @@ function Details({ cards, match, history, onDelete }) {
     history.push("/");
   }
 
+  function handleEdit() {
+    const card = cards && cards.find(card => card._id === match.params.id);
+    console.log(card);
+    onEdit(card, history);
+  }
+
   return (
     <>
       <Header title="Details" />
       <StyledContainer>
         <StyledDate>{card.date}</StyledDate>
-
         <StyledCompany>{card.company}</StyledCompany>
         <StyledProject>{card.project}</StyledProject>
         <StyledAmount>{card.amount.replace(".", ",")} €</StyledAmount>
@@ -104,6 +109,9 @@ function Details({ cards, match, history, onDelete }) {
         <ButtonGroup>
           <Button onClick={handleBack} kind="submit">
             Zur Übersicht
+          </Button>
+          <Button onClick={handleEdit} kind="neutral">
+            Bearbeiten
           </Button>
           <Button onClick={() => handleDelete(card)} kind="cancel">
             Löschen

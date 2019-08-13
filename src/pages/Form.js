@@ -46,9 +46,9 @@ const ButtonGroup = styled.div`
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
-function Form({ history, onCreate }) {
+function Form({ history, onCreate, itemToEdit }) {
   const [image, setImage] = React.useState("");
-
+  console.log(itemToEdit);
   function handleCancel() {
     history.push("/");
   }
@@ -104,16 +104,15 @@ function Form({ history, onCreate }) {
     today = year + "-" + month + "-" + day;
     return today;
   }
-
   return (
     <>
       <Header title="Neue Rechnung" />
-      <StyledForm onSubmit={handleSubmit}>
+      <StyledForm onSubmit={handleSubmit} defaultValue={itemToEdit._id}>
         <StyledLabel>
           Eingangsdatum:
           <StyledInput
             type="date"
-            defaultValue={getToday()}
+            defaultValue={itemToEdit.date || getToday()}
             max={getToday()}
             name="inputDate"
             required
@@ -121,7 +120,11 @@ function Form({ history, onCreate }) {
         </StyledLabel>
         <StyledLabel>
           Rechnungsaussteller:
-          <StyledInput name="inputName" placeholder="z.B. Holzland GmbH" />
+          <StyledInput
+            name="inputName"
+            defaultValue={itemToEdit.company || ""}
+            placeholder="z.B. Holzland GmbH"
+          />
         </StyledLabel>
         <StyledLabel>
           Projekt/ Kommission:
@@ -130,6 +133,7 @@ function Form({ history, onCreate }) {
             rows="8"
             placeholder="Projektname"
             name="inputProject"
+            defaultValue={itemToEdit.project || ""}
           />
         </StyledLabel>
         <StyledLabel>
@@ -139,12 +143,13 @@ function Form({ history, onCreate }) {
             type="number"
             step="0.01"
             placeholder="z.B. 123.45"
+            defaultValue={itemToEdit.amount || ""}
             id="amount"
             required
           />
         </StyledLabel>
 
-        <StyledLabel className="fileUpload">
+        <StyledLabel className="fileUpload" defaultValue={itemToEdit.file}>
           Bild hinzufügen:
           <div>
             {image ? (
