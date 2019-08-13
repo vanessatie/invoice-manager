@@ -24,13 +24,20 @@ function App() {
     history.replace(`/detail/${newCard._id}`);
   }
 
+  function handleDeleteCard(index) {
+    console.log(index);
+    setCards([...cards.slice(0, index), ...cards.slice(index + 1)]);
+  }
+
   return (
     <Router>
       <GlobalStyles />
       <Switch>
         <Route
           path="/detail/:id"
-          render={props => <Details cards={cards} {...props} />}
+          render={props => (
+            <Details cards={cards} onDelete={handleDeleteCard} {...props} />
+          )}
         />
         <Route
           path="/add"

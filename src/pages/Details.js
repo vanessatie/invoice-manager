@@ -42,13 +42,29 @@ const ButtonGroup = styled.div`
   padding-top: 30px;
 `;
 
-function Details({ cards, match, history }) {
+const StyledAlert = styled.div`
+  font-weight: bold;
+`;
+
+function Details({ cards, match, history, onDelete }) {
+  const [itemToDelete, setItemToDelete] = React.useState(null);
   const card = cards && cards.find(card => card._id === match.params.id);
   if (!card) {
     return null;
   }
 
   function handleBack() {
+    history.push("/");
+  }
+
+  function handleDelete(card) {
+    setItemToDelete(card);
+    console.log(card);
+  }
+
+  function handleDeleteConfirmation() {
+    onDelete(cards.findIndex(item => itemToDelete === item));
+    setItemToDelete(null);
     history.push("/");
   }
 
@@ -70,9 +86,27 @@ function Details({ cards, match, history }) {
           }
           alt={card.company}
         />
+        {itemToDelete && (
+          <div onClose={() => setItemToDelete(null)}>
+            <StyledAlert>
+              Soll die Rechnung wirklich gelöscht werden?
+            </StyledAlert>
+            <ButtonGroup>
+              <Button kind="neutral" onClick={() => setItemToDelete(null)}>
+                Abbrechen
+              </Button>
+              <Button kind="cancel" onClick={handleDeleteConfirmation}>
+                Ja, löschen
+              </Button>
+            </ButtonGroup>
+          </div>
+        )}
         <ButtonGroup>
           <Button onClick={handleBack} kind="submit">
             Zur Übersicht
+          </Button>
+          <Button onClick={() => handleDelete(card)} kind="cancel">
+            Löschen
           </Button>
         </ButtonGroup>
       </StyledContainer>
