@@ -14,21 +14,23 @@ const Headline = styled.h1`
   font-size: 18px;
 `;
 
-const StyledLogo = styled.img`
-  margin: 6px 15px 6px 15px;
+const StyledLogo = styled.div`
+  margin: 6px 15px 6px 10px;
+  font-size: 18px;
 `;
 
-function Header({ title }) {
+function Header({ title, headerIcon }) {
   return (
     <StyledHeader>
-      <StyledLogo src="icon_file.png" />
+      <StyledLogo>{headerIcon}</StyledLogo>
       <Headline>{title}</Headline>
     </StyledHeader>
   );
 }
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  headerIcon: PropTypes.object
 };
 
 export default Header;

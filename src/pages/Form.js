@@ -46,9 +46,13 @@ const ButtonGroup = styled.div`
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
-function Form({ history, onCreate }) {
-  const [image, setImage] = React.useState("");
+function Form({ history, onCreate, match, cards }) {
+  const itemToEdit =
+    match.params.id &&
+    cards &&
+    cards.find(card => card._id === match.params.id);
 
+  const [image, setImage] = React.useState("");
   function handleCancel() {
     history.push("/");
   }
@@ -58,13 +62,13 @@ function Form({ history, onCreate }) {
 
     const form = event.target;
     const card = {
+      ...(itemToEdit ? itemToEdit : {}),
       date: form.inputDate.value,
       company: form.inputName.value,
       project: form.inputProject.value,
       amount: form.inputAmount.value,
       file: image
     };
-
     onCreate(card, history);
   }
 
@@ -107,13 +111,16 @@ function Form({ history, onCreate }) {
 
   return (
     <>
-      <Header title="Neue Rechnung" />
+      <Header
+        title="Neue Rechnung"
+        headerIcon={<i className="fas fa-plus" />}
+      />
       <StyledForm onSubmit={handleSubmit}>
         <StyledLabel>
           Eingangsdatum:
           <StyledInput
             type="date"
-            defaultValue={getToday()}
+            defaultValue={(itemToEdit && itemToEdit.date) || getToday()}
             max={getToday()}
             name="inputDate"
             required
@@ -121,7 +128,11 @@ function Form({ history, onCreate }) {
         </StyledLabel>
         <StyledLabel>
           Rechnungsaussteller:
-          <StyledInput name="inputName" placeholder="z.B. Holzland GmbH" />
+          <StyledInput
+            name="inputName"
+            defaultValue={(itemToEdit && itemToEdit.company) || ""}
+            placeholder="z.B. Holzland GmbH"
+          />
         </StyledLabel>
         <StyledLabel>
           Projekt/ Kommission:
@@ -130,6 +141,7 @@ function Form({ history, onCreate }) {
             rows="8"
             placeholder="Projektname"
             name="inputProject"
+            defaultValue={(itemToEdit && itemToEdit.project) || ""}
           />
         </StyledLabel>
         <StyledLabel>
@@ -139,6 +151,7 @@ function Form({ history, onCreate }) {
             type="number"
             step="0.01"
             placeholder="z.B. 123.45"
+            defaultValue={(itemToEdit && itemToEdit.amount) || ""}
             id="amount"
             required
           />
@@ -147,14 +160,15 @@ function Form({ history, onCreate }) {
         <StyledLabel className="fileUpload">
           Bild hinzufügen:
           <div>
-            {image ? (
-              <StyledImage src={image} alt="" />
+            {itemToEdit || image ? (
+              <StyledImage src={image} alt="Keine Vorschau verfügbar" />
             ) : (
               <StyledInput
                 type="file"
                 name="file"
                 id="upload"
                 onChange={uploadImage}
+                accept="image/*,.pdf"
               />
             )}
           </div>
@@ -163,7 +177,10 @@ function Form({ history, onCreate }) {
           <Button onClick={handleCancel} kind="cancel">
             Abbrechen
           </Button>
-          <Button kind="submit">Hinzufügen</Button>
+
+          <Button kind="submit">
+            {itemToEdit ? "Speichern" : "Hinzufügen"}
+          </Button>
         </ButtonGroup>
       </StyledForm>
     </>
@@ -171,7 +188,8 @@ function Form({ history, onCreate }) {
 }
 
 Form.propTypes = {
-  onCreate: PropTypes.func
+  onCreate: PropTypes.func,
+  cards: PropTypes.array.isRequired
 };
 
 export default Form;

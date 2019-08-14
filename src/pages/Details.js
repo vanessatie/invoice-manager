@@ -7,7 +7,7 @@ import Button from "../components/Button";
 const StyledContainer = styled.div`
   padding: 30px;
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 5px;
   font-size: 1rem;
 `;
 
@@ -22,7 +22,7 @@ const StyledCompany = styled.div`
 
 const StyledProject = styled.div`
   justify-self: flex-start;
-  padding: 15px;
+  padding: 10px 15px 5px 15px;
 `;
 
 const StyledAmount = styled.div`
@@ -31,19 +31,30 @@ const StyledAmount = styled.div`
 `;
 
 const StyledImage = styled.img`
-  max-height: 80%;
-  max-width: 80%;
+  max-height: 70%;
+  max-width: 70%;
   justify-self: center;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding-top: 30px;
+  padding-top: 20px;
 `;
 
-function Details({ cards, match, history }) {
+const StyledAlert = styled.div`
+  font-weight: bold;
+  padding: 10px;
+  margin: 5px 20px 10px 0;
+  border: 1px solid #bfc0c0;
+  border-radius: 2px;
+  box-shadow: 2px 2px 0px #bfc0c0;
+`;
+
+function Details({ cards, match, history, onDelete }) {
   const card = cards && cards.find(card => card._id === match.params.id);
+  const [showDialog, setShowDialog] = React.useState(false);
+
   if (!card) {
     return null;
   }
@@ -51,12 +62,24 @@ function Details({ cards, match, history }) {
   function handleBack() {
     history.push("/");
   }
+
+  function handleDeleteConfirmation() {
+    onDelete(cards.findIndex(item => card === item));
+    history.push("/");
+  }
+
+  function handleEdit() {
+    history.push(`/edit/${card._id}`);
+  }
+
   return (
     <>
-      <Header title="Details" />
+      <Header
+        title="Details"
+        headerIcon={<i className="fas fa-search-plus" />}
+      />
       <StyledContainer>
         <StyledDate>{card.date}</StyledDate>
-
         <StyledCompany>{card.company}</StyledCompany>
         <StyledProject>{card.project}</StyledProject>
         <StyledAmount>{card.amount.replace(".", ",")} €</StyledAmount>
@@ -69,9 +92,29 @@ function Details({ cards, match, history }) {
           }
           alt={card.company}
         />
+        {showDialog && (
+          <StyledAlert>
+            Soll die Rechnung wirklich gelöscht werden?
+            <ButtonGroup>
+              <Button kind="neutral" onClick={() => setShowDialog(false)}>
+                Abbrechen
+              </Button>
+              <Button kind="cancel" onClick={handleDeleteConfirmation}>
+                Ja, löschen
+              </Button>
+            </ButtonGroup>
+          </StyledAlert>
+        )}
+
         <ButtonGroup>
+          <Button onClick={() => setShowDialog(true)} kind="cancel">
+            Löschen
+          </Button>
+          <Button onClick={handleEdit} kind="neutral">
+            Bearbeiten
+          </Button>
           <Button onClick={handleBack} kind="submit">
-            Zur Übersicht
+            Übersicht
           </Button>
         </ButtonGroup>
       </StyledContainer>
@@ -80,7 +123,8 @@ function Details({ cards, match, history }) {
 }
 
 Details.propTypes = {
-  cards: PropTypes.array.isRequired
+  cards: PropTypes.array.isRequired,
+  onDelete: PropTypes.func
 };
 
 export default Details;

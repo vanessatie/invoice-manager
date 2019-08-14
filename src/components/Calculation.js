@@ -1,6 +1,7 @@
 import React from "react";
 import Dinero from "dinero.js";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const StyledSum = styled.div`
   text-align: end;
@@ -16,6 +17,11 @@ const StyledTax = styled.div`
   margin-right: 20px;
 `;
 
+const StyledMessage = styled.div`
+  text-align: center;
+  line-height: 1.5;
+`;
+
 export function SumCalculation({ cards }) {
   const total = cards
     .map(element => parseInt(element.amount * 100))
@@ -23,6 +29,16 @@ export function SumCalculation({ cards }) {
       return accumulator.add(Dinero({ amount: currentValue }));
     }, Dinero({ amount: 0 }));
   let sum = total.toFormat("$0,0.00");
+  if (sum === "0,00 €") {
+    return (
+      <>
+        <StyledMessage>
+          <br />
+          Keine Rechnungen vorhanden
+        </StyledMessage>
+      </>
+    );
+  }
 
   return <StyledSum>Summe: {sum}</StyledSum>;
 }
@@ -35,8 +51,18 @@ export function TaxCalculation({ cards }) {
     }, Dinero({ amount: 0 }))
     .multiply(0.19);
   let totalTax = tax.toFormat("$0,0.00");
-
+  if (totalTax === "0,00 €") {
+    return <div />;
+  }
   return <StyledTax>MwSt.: {totalTax}</StyledTax>;
 }
+
+SumCalculation.propTypes = {
+  cards: PropTypes.array.isRequired
+};
+
+TaxCalculation.propTypes = {
+  cards: PropTypes.array.isRequired
+};
 
 export default SumCalculation;

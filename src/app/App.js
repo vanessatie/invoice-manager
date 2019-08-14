@@ -8,14 +8,12 @@ import uuid from "uuid/v1";
 import Footer from "../components/Footer";
 import Details from "../pages/Details";
 import Dinero from "dinero.js";
-import Calculation from "../components/Calculation";
 
 Dinero.defaultCurrency = "EUR";
 Dinero.globalLocale = "de-DE";
 
 function App() {
   const [cards, setCards] = React.useState(getFromLocal("cards") || []);
-
   React.useEffect(() => setToLocal("cards", cards), [cards]);
 
   function handleCreate(card, history) {
@@ -25,21 +23,38 @@ function App() {
     history.replace(`/detail/${newCard._id}`);
   }
 
+  function handleDeleteCard(index) {
+    setCards([...cards.slice(0, index), ...cards.slice(index + 1)]);
+  }
+
+  function handleEdit(card, history) {
+    const index = cards.findIndex(item => item._id === card._id);
+    setCards([...cards.slice(0, index), card, ...cards.slice(index + 1)]);
+
+    history.replace(`/detail/${card._id}`);
+  }
+
   return (
     <Router>
       <GlobalStyles />
       <Switch>
         <Route
           path="/detail/:id"
-          render={props => <Details cards={cards} {...props} />}
+          render={props => (
+            <Details cards={cards} onDelete={handleDeleteCard} {...props} />
+          )}
         />
         <Route
           path="/add"
-          render={props => <Form onCreate={handleCreate} {...props} />}
+          render={props => (
+            <Form onCreate={handleCreate} cards={cards} {...props} />
+          )}
         />
         <Route
-          path="/calcTest"
-          render={props => <Calculation cards={cards} {...props} />}
+          path="/edit/:id"
+          render={props => (
+            <Form onCreate={handleEdit} cards={cards} {...props} />
+          )}
         />
 
         <Route path="/" render={props => <Cards cards={cards} {...props} />} />

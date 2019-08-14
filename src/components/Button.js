@@ -32,7 +32,7 @@ const StyledButton = styled.button`
   }
 `;
 
-export const LinkButton = ({ children, to, ...props }) => (
+export const LinkButton = ({ children, to }) => (
   <Link to={to}>
     <StyledButton />
   </Link>
