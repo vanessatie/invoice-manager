@@ -14,7 +14,6 @@ Dinero.globalLocale = "de-DE";
 
 function App() {
   const [cards, setCards] = React.useState(getFromLocal("cards") || []);
-  const [itemToEdit, setItemToEdit] = React.useState("");
   React.useEffect(() => setToLocal("cards", cards), [cards]);
 
   function handleCreate(card, history) {
@@ -25,16 +24,14 @@ function App() {
   }
 
   function handleDeleteCard(index) {
-    console.log(index);
     setCards([...cards.slice(0, index), ...cards.slice(index + 1)]);
   }
 
-  function handleEdit(card, history) {
-    setItemToEdit(card);
-    //onEdit(cards.findIndex(item => itemToEdit === item));
-    history.push("/add/");
+  function handleEdit(card) {
+    const index = cards.findIndex(item => item._id === card._id);
+    setCards([...cards.slice(0, index), card, ...cards.slice(index + 1)]);
   }
-  console.log(itemToEdit);
+
   return (
     <Router>
       <GlobalStyles />
@@ -42,23 +39,19 @@ function App() {
         <Route
           path="/detail/:id"
           render={props => (
-            <Details
-              cards={cards}
-              onDelete={handleDeleteCard}
-              onEdit={handleEdit}
-              {...props}
-            />
+            <Details cards={cards} onDelete={handleDeleteCard} {...props} />
           )}
         />
         <Route
           path="/add"
           render={props => (
-            <Form
-              onCreate={handleCreate}
-              cards={cards}
-              itemToEdit={itemToEdit}
-              {...props}
-            />
+            <Form onCreate={handleCreate} cards={cards} {...props} />
+          )}
+        />
+        <Route
+          path="/edit/:id"
+          render={props => (
+            <Form onCreate={handleEdit} cards={cards} {...props} />
           )}
         />
 

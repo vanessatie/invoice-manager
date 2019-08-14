@@ -46,10 +46,10 @@ const StyledAlert = styled.div`
   font-weight: bold;
 `;
 
-function Details({ cards, match, history, onDelete, onEdit }) {
-  const [itemToDelete, setItemToDelete] = React.useState(null);
-
+function Details({ cards, match, history, onDelete }) {
   const card = cards && cards.find(card => card._id === match.params.id);
+  const [showDialog, setShowDialog] = React.useState(false);
+
   if (!card) {
     return null;
   }
@@ -58,20 +58,13 @@ function Details({ cards, match, history, onDelete, onEdit }) {
     history.push("/");
   }
 
-  function handleDelete(card) {
-    setItemToDelete(card);
-  }
-
   function handleDeleteConfirmation() {
-    onDelete(cards.findIndex(item => itemToDelete === item));
-    setItemToDelete(null);
+    onDelete(cards.findIndex(item => card === item));
     history.push("/");
   }
 
   function handleEdit() {
-    const card = cards && cards.find(card => card._id === match.params.id);
-    console.log(card);
-    onEdit(card, history);
+    history.push(`/edit/${card._id}`);
   }
 
   return (
@@ -91,13 +84,13 @@ function Details({ cards, match, history, onDelete, onEdit }) {
           }
           alt={card.company}
         />
-        {itemToDelete && (
-          <div onClose={() => setItemToDelete(null)}>
+        {showDialog && (
+          <div>
             <StyledAlert>
               Soll die Rechnung wirklich gelöscht werden?
             </StyledAlert>
             <ButtonGroup>
-              <Button kind="neutral" onClick={() => setItemToDelete(null)}>
+              <Button kind="neutral" onClick={() => setShowDialog(false)}>
                 Abbrechen
               </Button>
               <Button kind="cancel" onClick={handleDeleteConfirmation}>
@@ -113,7 +106,7 @@ function Details({ cards, match, history, onDelete, onEdit }) {
           <Button onClick={handleEdit} kind="neutral">
             Bearbeiten
           </Button>
-          <Button onClick={() => handleDelete(card)} kind="cancel">
+          <Button onClick={() => setShowDialog(true)} kind="cancel">
             Löschen
           </Button>
         </ButtonGroup>

@@ -46,9 +46,14 @@ const ButtonGroup = styled.div`
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
-function Form({ history, onCreate, itemToEdit }) {
-  const [image, setImage] = React.useState("");
+function Form({ history, onCreate, match, cards }) {
+  const itemToEdit =
+    match.params.id &&
+    cards &&
+    cards.find(card => card._id === match.params.id);
   console.log(itemToEdit);
+
+  const [image, setImage] = React.useState("");
   function handleCancel() {
     history.push("/");
   }
@@ -58,13 +63,13 @@ function Form({ history, onCreate, itemToEdit }) {
 
     const form = event.target;
     const card = {
+      ...(itemToEdit ? itemToEdit : {}),
       date: form.inputDate.value,
       company: form.inputName.value,
       project: form.inputProject.value,
       amount: form.inputAmount.value,
       file: image
     };
-
     onCreate(card, history);
   }
 
@@ -104,15 +109,16 @@ function Form({ history, onCreate, itemToEdit }) {
     today = year + "-" + month + "-" + day;
     return today;
   }
+
   return (
     <>
       <Header title="Neue Rechnung" />
-      <StyledForm onSubmit={handleSubmit} defaultValue={itemToEdit._id}>
+      <StyledForm onSubmit={handleSubmit}>
         <StyledLabel>
           Eingangsdatum:
           <StyledInput
             type="date"
-            defaultValue={itemToEdit.date || getToday()}
+            defaultValue={(itemToEdit && itemToEdit.date) || getToday()}
             max={getToday()}
             name="inputDate"
             required
@@ -122,7 +128,7 @@ function Form({ history, onCreate, itemToEdit }) {
           Rechnungsaussteller:
           <StyledInput
             name="inputName"
-            defaultValue={itemToEdit.company || ""}
+            defaultValue={(itemToEdit && itemToEdit.company) || ""}
             placeholder="z.B. Holzland GmbH"
           />
         </StyledLabel>
@@ -133,7 +139,7 @@ function Form({ history, onCreate, itemToEdit }) {
             rows="8"
             placeholder="Projektname"
             name="inputProject"
-            defaultValue={itemToEdit.project || ""}
+            defaultValue={(itemToEdit && itemToEdit.project) || ""}
           />
         </StyledLabel>
         <StyledLabel>
@@ -143,13 +149,16 @@ function Form({ history, onCreate, itemToEdit }) {
             type="number"
             step="0.01"
             placeholder="z.B. 123.45"
-            defaultValue={itemToEdit.amount || ""}
+            defaultValue={(itemToEdit && itemToEdit.amount) || ""}
             id="amount"
             required
           />
         </StyledLabel>
 
-        <StyledLabel className="fileUpload" defaultValue={itemToEdit.file}>
+        <StyledLabel
+          className="fileUpload"
+          defaultValue={itemToEdit && itemToEdit.file}
+        >
           Bild hinzufügen:
           <div>
             {image ? (
@@ -168,7 +177,10 @@ function Form({ history, onCreate, itemToEdit }) {
           <Button onClick={handleCancel} kind="cancel">
             Abbrechen
           </Button>
-          <Button kind="submit">Hinzufügen</Button>
+
+          <Button kind="submit">
+            {itemToEdit ? "Speichern" : "Hinzufügen"}
+          </Button>
         </ButtonGroup>
       </StyledForm>
     </>
