@@ -1,6 +1,7 @@
 import React from "react";
 import Dinero from "dinero.js";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const StyledSum = styled.div`
   text-align: end;
@@ -55,5 +56,13 @@ export function TaxCalculation({ cards }) {
   }
   return <StyledTax>MwSt.: {totalTax}</StyledTax>;
 }
+
+SumCalculation.propTypes = {
+  cards: PropTypes.array.isRequired
+};
+
+TaxCalculation.propTypes = {
+  cards: PropTypes.array.isRequired
+};
 
 export default SumCalculation;

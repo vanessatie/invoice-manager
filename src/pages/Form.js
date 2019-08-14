@@ -51,7 +51,6 @@ function Form({ history, onCreate, match, cards }) {
     match.params.id &&
     cards &&
     cards.find(card => card._id === match.params.id);
-  console.log(itemToEdit);
 
   const [image, setImage] = React.useState("");
   function handleCancel() {
@@ -112,7 +111,10 @@ function Form({ history, onCreate, match, cards }) {
 
   return (
     <>
-      <Header title="Neue Rechnung" />
+      <Header
+        title="Neue Rechnung"
+        headerIcon={<i className="fas fa-plus" />}
+      />
       <StyledForm onSubmit={handleSubmit}>
         <StyledLabel>
           Eingangsdatum:
@@ -155,20 +157,18 @@ function Form({ history, onCreate, match, cards }) {
           />
         </StyledLabel>
 
-        <StyledLabel
-          className="fileUpload"
-          defaultValue={itemToEdit && itemToEdit.file}
-        >
+        <StyledLabel className="fileUpload">
           Bild hinzufügen:
           <div>
-            {image ? (
-              <StyledImage src={image} alt="" />
+            {itemToEdit || image ? (
+              <StyledImage src={image} alt="Keine Vorschau verfügbar" />
             ) : (
               <StyledInput
                 type="file"
                 name="file"
                 id="upload"
                 onChange={uploadImage}
+                accept="image/*,.pdf"
               />
             )}
           </div>
@@ -188,7 +188,8 @@ function Form({ history, onCreate, match, cards }) {
 }
 
 Form.propTypes = {
-  onCreate: PropTypes.func
+  onCreate: PropTypes.func,
+  cards: PropTypes.array.isRequired
 };
 
 export default Form;

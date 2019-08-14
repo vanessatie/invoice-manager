@@ -7,7 +7,7 @@ import Button from "../components/Button";
 const StyledContainer = styled.div`
   padding: 30px;
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 5px;
   font-size: 1rem;
 `;
 
@@ -22,7 +22,7 @@ const StyledCompany = styled.div`
 
 const StyledProject = styled.div`
   justify-self: flex-start;
-  padding: 15px;
+  padding: 10px 15px 5px 15px;
 `;
 
 const StyledAmount = styled.div`
@@ -31,19 +31,24 @@ const StyledAmount = styled.div`
 `;
 
 const StyledImage = styled.img`
-  max-height: 80%;
-  max-width: 80%;
+  max-height: 70%;
+  max-width: 70%;
   justify-self: center;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding-top: 30px;
+  padding-top: 20px;
 `;
 
 const StyledAlert = styled.div`
   font-weight: bold;
+  padding: 10px;
+  margin: 5px 20px 10px 0;
+  border: 1px solid #bfc0c0;
+  border-radius: 2px;
+  box-shadow: 2px 2px 0px #bfc0c0;
 `;
 
 function Details({ cards, match, history, onDelete }) {
@@ -69,7 +74,10 @@ function Details({ cards, match, history, onDelete }) {
 
   return (
     <>
-      <Header title="Details" />
+      <Header
+        title="Details"
+        headerIcon={<i className="fas fa-search-plus" />}
+      />
       <StyledContainer>
         <StyledDate>{card.date}</StyledDate>
         <StyledCompany>{card.company}</StyledCompany>
@@ -85,10 +93,8 @@ function Details({ cards, match, history, onDelete }) {
           alt={card.company}
         />
         {showDialog && (
-          <div>
-            <StyledAlert>
-              Soll die Rechnung wirklich gelöscht werden?
-            </StyledAlert>
+          <StyledAlert>
+            Soll die Rechnung wirklich gelöscht werden?
             <ButtonGroup>
               <Button kind="neutral" onClick={() => setShowDialog(false)}>
                 Abbrechen
@@ -97,17 +103,18 @@ function Details({ cards, match, history, onDelete }) {
                 Ja, löschen
               </Button>
             </ButtonGroup>
-          </div>
+          </StyledAlert>
         )}
+
         <ButtonGroup>
-          <Button onClick={handleBack} kind="submit">
-            Zur Übersicht
+          <Button onClick={() => setShowDialog(true)} kind="cancel">
+            Löschen
           </Button>
           <Button onClick={handleEdit} kind="neutral">
             Bearbeiten
           </Button>
-          <Button onClick={() => setShowDialog(true)} kind="cancel">
-            Löschen
+          <Button onClick={handleBack} kind="submit">
+            Übersicht
           </Button>
         </ButtonGroup>
       </StyledContainer>
@@ -116,7 +123,8 @@ function Details({ cards, match, history, onDelete }) {
 }
 
 Details.propTypes = {
-  cards: PropTypes.array.isRequired
+  cards: PropTypes.array.isRequired,
+  onDelete: PropTypes.func
 };
 
 export default Details;

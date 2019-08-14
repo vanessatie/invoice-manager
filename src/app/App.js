@@ -27,9 +27,11 @@ function App() {
     setCards([...cards.slice(0, index), ...cards.slice(index + 1)]);
   }
 
-  function handleEdit(card) {
+  function handleEdit(card, history) {
     const index = cards.findIndex(item => item._id === card._id);
     setCards([...cards.slice(0, index), card, ...cards.slice(index + 1)]);
+
+    history.replace(`/detail/${card._id}`);
   }
 
   return (

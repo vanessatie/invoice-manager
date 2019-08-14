@@ -34,7 +34,7 @@ function Cards({ cards, history }) {
 
   return (
     <>
-      <Header title="Rechnungen" />
+      <Header title="Rechnungen" headerIcon={<i className="fas fa-list" />} />
       <CardList
         month={month}
         cards={filteredCards}
