@@ -69,7 +69,7 @@ function Form({ history, onCreate, match, cards }) {
       company: form.inputName.value,
       project: form.inputProject.value,
       amount: form.inputAmount.value,
-      file: image
+      file: (itemToEdit && itemToEdit.file) || image
     };
     onCreate(card, history);
   }
@@ -171,8 +171,11 @@ function Form({ history, onCreate, match, cards }) {
         <StyledLabel className="fileUpload">
           Bild hinzufügen:
           <div>
-            {itemToEdit || image ? (
-              <StyledImage src={image} alt="Keine Vorschau verfügbar" />
+            {image || (itemToEdit && itemToEdit.file) ? (
+              <StyledImage
+                src={image || (itemToEdit && itemToEdit.file)}
+                alt="Keine Vorschau verfügbar"
+              />
             ) : (
               <StyledInput
                 type="file"
@@ -185,6 +188,22 @@ function Form({ history, onCreate, match, cards }) {
             )}
           </div>
         </StyledLabel>
+        {image || (itemToEdit && itemToEdit.file) ? (
+          <div>
+            <StyledLabel className="fileUpload">Bild ändern:</StyledLabel>
+            <StyledInput
+              type="file"
+              name="file"
+              id="upload"
+              onChange={uploadImage}
+              accept="image/*,.pdf"
+              multiple
+            />
+          </div>
+        ) : (
+          <div />
+        )}
+
         <ButtonGroup>
           <Button onClick={handleCancel} kind="cancel">
             Abbrechen
