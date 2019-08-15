@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Button from "../components/Button";
+import BackgroundImg from "../components/BackgroundImage";
 
 const StyledContainer = styled.div`
   padding: 30px;
@@ -78,6 +79,7 @@ function Details({ cards, match, history, onDelete }) {
         title="Details"
         headerIcon={<i className="fas fa-search-plus" />}
       />
+      <BackgroundImg src="background_img.png" />
       <StyledContainer>
         <StyledDate>{card.date}</StyledDate>
         <StyledCompany>{card.company}</StyledCompany>
@@ -105,7 +107,6 @@ function Details({ cards, match, history, onDelete }) {
             </ButtonGroup>
           </StyledAlert>
         )}
-
         <ButtonGroup>
           <Button onClick={() => setShowDialog(true)} kind="cancel">
             Löschen

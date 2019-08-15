@@ -13,6 +13,7 @@ const StyledCard = styled.div`
   border: 1px solid #bfc0c0;
   border-radius: 2px;
   box-shadow: 2px 2px 0px #bfc0c0;
+  background-color: white;
 `;
 
 const StyledDate = styled.div`

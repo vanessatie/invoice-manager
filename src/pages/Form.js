@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import axios from "axios";
+import BackgroundImg from "../components/BackgroundImage";
 
 const StyledForm = styled.form`
   padding: 10px;
@@ -47,6 +48,7 @@ const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
 function Form({ history, onCreate, match, cards }) {
+  const [loading, setLoading] = React.useState(false);
   const itemToEdit =
     match.params.id &&
     cards &&
@@ -79,6 +81,7 @@ function Form({ history, onCreate, match, cards }) {
     formData.append("file", event.target.files[0]);
     formData.append("upload_preset", PRESET);
 
+    setLoading(true);
     axios
       .post(url, formData, {
         headers: {
@@ -90,6 +93,7 @@ function Form({ history, onCreate, match, cards }) {
   }
   function onImageSave(response) {
     setImage(response.data.url);
+    setLoading(false);
   }
 
   function getToday() {
@@ -112,9 +116,16 @@ function Form({ history, onCreate, match, cards }) {
   return (
     <>
       <Header
-        title="Neue Rechnung"
-        headerIcon={<i className="fas fa-plus" />}
+        title={itemToEdit ? "Rechnung bearbeiten" : "Neue Rechnung"}
+        headerIcon={
+          itemToEdit ? (
+            <i className="far fa-edit" />
+          ) : (
+            <i className="fas fa-plus" />
+          )
+        }
       />
+      <BackgroundImg src="background_img.png" />
       <StyledForm onSubmit={handleSubmit}>
         <StyledLabel>
           Eingangsdatum:
@@ -169,6 +180,7 @@ function Form({ history, onCreate, match, cards }) {
                 id="upload"
                 onChange={uploadImage}
                 accept="image/*,.pdf"
+                multiple
               />
             )}
           </div>
@@ -178,8 +190,8 @@ function Form({ history, onCreate, match, cards }) {
             Abbrechen
           </Button>
 
-          <Button kind="submit">
-            {itemToEdit ? "Speichern" : "Hinzufügen"}
+          <Button kind="submit" disabled={loading}>
+            {loading ? "Bitte warten" : itemToEdit ? "Speichern" : "Hinzufügen"}
           </Button>
         </ButtonGroup>
       </StyledForm>
