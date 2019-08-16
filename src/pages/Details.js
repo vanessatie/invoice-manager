@@ -4,6 +4,10 @@ import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import BackgroundImg from "../components/BackgroundImage";
+import { Document, pdfjs } from "react-pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
+  pdfjs.version
+}/pdf.worker.js`;
 
 const StyledContainer = styled.div`
   padding: 30px;
@@ -52,6 +56,12 @@ const StyledAlert = styled.div`
   box-shadow: 2px 2px 0px #bfc0c0;
 `;
 
+const StyledPreviewButton = styled.a`
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+`;
+
 function Details({ cards, match, history, onDelete }) {
   const card = cards && cards.find(card => card._id === match.params.id);
   const [showDialog, setShowDialog] = React.useState(false);
@@ -94,6 +104,13 @@ function Details({ cards, match, history, onDelete }) {
           }
           alt={card.company}
         />
+        {card.file && card.file.endsWith(".pdf") ? (
+          <Document file={card.file} />
+        ) : (
+          <StyledPreviewButton href={card.file}>
+            <Button>Detailansicht</Button>
+          </StyledPreviewButton>
+        )}
         {showDialog && (
           <StyledAlert>
             Soll die Rechnung wirklich gelöscht werden?

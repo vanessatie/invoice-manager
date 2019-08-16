@@ -5,6 +5,10 @@ import Header from "../components/Header";
 import Button from "../components/Button";
 import axios from "axios";
 import BackgroundImg from "../components/BackgroundImage";
+import { Document, pdfjs } from "react-pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
+  pdfjs.version
+}/pdf.worker.js`;
 
 const StyledForm = styled.form`
   padding: 10px;
@@ -69,7 +73,7 @@ function Form({ history, onCreate, match, cards }) {
       company: form.inputName.value,
       project: form.inputProject.value,
       amount: form.inputAmount.value,
-      file: (itemToEdit && itemToEdit.file) || image
+      file: image || (itemToEdit && itemToEdit.file)
     };
     onCreate(card, history);
   }
@@ -179,7 +183,7 @@ function Form({ history, onCreate, match, cards }) {
             ) : (
               <StyledInput
                 type="file"
-                name="file"
+                name="file[]"
                 id="upload"
                 onChange={uploadImage}
                 accept="image/*,.pdf"
