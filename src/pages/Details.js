@@ -10,7 +10,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 }/pdf.worker.js`;
 
 const StyledContainer = styled.div`
-  padding: 30px;
+  padding: 20px;
   display: grid;
   grid-gap: 5px;
   font-size: 1rem;
@@ -18,6 +18,15 @@ const StyledContainer = styled.div`
 
 const StyledDate = styled.div`
   justify-self: flex-start;
+`;
+
+const StyledPaid = styled.div`
+  justify-self: flex-end;
+  color: #79c99e;
+`;
+const StyledUnpaid = styled.div`
+  justify-self: flex-end;
+  color: #ef8354;
 `;
 
 const StyledCompany = styled.div`
@@ -92,6 +101,18 @@ function Details({ cards, match, history, onDelete }) {
       <BackgroundImg src="background_img.png" />
       <StyledContainer>
         <StyledDate>{card.date}</StyledDate>
+        <StyledPaid>
+          {card.paid === true ? (
+            <StyledPaid>
+              <i className="fas fa-check" /> paid
+            </StyledPaid>
+          ) : (
+            <StyledUnpaid>
+              <i className="fas fa-exclamation" /> unpaid
+            </StyledUnpaid>
+          )}
+        </StyledPaid>
+
         <StyledCompany>{card.company}</StyledCompany>
         <StyledProject>{card.project}</StyledProject>
         <StyledAmount>{card.amount.replace(".", ",")} €</StyledAmount>

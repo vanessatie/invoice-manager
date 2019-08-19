@@ -5,25 +5,23 @@ import Header from "../components/Header";
 import Button from "../components/Button";
 import axios from "axios";
 import BackgroundImg from "../components/BackgroundImage";
-import { Document, pdfjs } from "react-pdf";
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
-  pdfjs.version
-}/pdf.worker.js`;
 
 const StyledForm = styled.form`
-  padding: 10px;
+  padding: 20px;
   display: grid;
   grid-gap: 10px;
 `;
 const StyledInput = styled.input`
   width: 100%;
+  border-radius: 15px;
+  padding: 7px 20px 7px 20px;
+
+  height: auto;
   border: 1px solid lightgrey;
-  border-radius: 3px;
   background-color: white;
   font-family: Arial, Helvetica, sans-serif;
   color: #2d3142;
-  margin-top: 5px;
-  padding: 3px;
+
   padding-left: 5px;
   ::placeholder {
     color: #bfc0c0;
@@ -33,14 +31,29 @@ const StyledInput = styled.input`
   }
 `;
 
+const StyledCheckbox = styled.input`
+  display: block;
+  float: right;
+  margin-right: 8px;
+  background-color: white;
+`;
+
 const StyledLabel = styled.label`
+  margin-top: 10px;
+  line-height: 1.5rem;
+`;
+
+const StyledCheckboxLabel = styled.label`
   margin-top: 15px;
+  float: left;
+  width: 25%;
 `;
 
 const StyledImage = styled.img`
   width: 50%;
   display: flex;
   justify-content: center;
+  align-self: center;
 `;
 
 const ButtonGroup = styled.div`
@@ -53,6 +66,7 @@ const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
 function Form({ history, onCreate, match, cards }) {
   const [loading, setLoading] = React.useState(false);
+  const [paid, setPaid] = React.useState(false);
   const itemToEdit =
     match.params.id &&
     cards &&
@@ -73,8 +87,10 @@ function Form({ history, onCreate, match, cards }) {
       company: form.inputName.value,
       project: form.inputProject.value,
       amount: form.inputAmount.value,
+      paid: paid,
       file: image || (itemToEdit && itemToEdit.file)
     };
+    console.log(itemToEdit.paid);
     onCreate(card, history);
   }
 
@@ -115,6 +131,15 @@ function Form({ history, onCreate, match, cards }) {
 
     today = year + "-" + month + "-" + day;
     return today;
+  }
+
+  function handlePaid(event) {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    //const name = target.name;
+
+    setPaid(value);
+    console.log(value);
   }
 
   return (
@@ -171,6 +196,17 @@ function Form({ history, onCreate, match, cards }) {
             required
           />
         </StyledLabel>
+
+        <StyledCheckboxLabel className="paidBox">
+          <StyledCheckbox
+            type="checkbox"
+            name="isPaid"
+            checked={paid}
+            onChange={handlePaid}
+            defaultValue={itemToEdit && itemToEdit.paid}
+          />
+          Bezahlt ?
+        </StyledCheckboxLabel>
 
         <StyledLabel className="fileUpload">
           Bild hinzufügen:
