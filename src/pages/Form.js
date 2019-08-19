@@ -36,6 +36,7 @@ const StyledCheckbox = styled.input`
   float: right;
   margin-right: 8px;
   background-color: white;
+  height: auto;
 `;
 
 const StyledLabel = styled.label`

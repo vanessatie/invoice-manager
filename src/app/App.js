@@ -3,6 +3,7 @@ import GlobalStyles from "./GlobalStyles";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Cards from "../pages/Cards";
 import Form from "../pages/Form";
+import Search from "../pages/Search";
 import { getFromLocal, setToLocal } from "../services";
 import uuid from "uuid/v1";
 import Footer from "../components/Footer";
@@ -55,6 +56,10 @@ function App() {
           render={props => (
             <Form onCreate={handleEdit} cards={cards} {...props} />
           )}
+        />
+        <Route
+          path="/search"
+          render={props => <Search cards={cards} {...props} />}
         />
 
         <Route path="/" render={props => <Cards cards={cards} {...props} />} />
