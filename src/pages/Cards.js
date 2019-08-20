@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Header from "../components/Header";
 import CardList from "../components/CardList";
 import { SumCalculation, TaxCalculation } from "../components/Calculation";
+import BackgroundImg from "../components/BackgroundImage";
 
 function defaultMonth() {
   const today = new Date();
@@ -35,6 +36,7 @@ function Cards({ cards, history }) {
   return (
     <>
       <Header title="Rechnungen" headerIcon={<i className="fas fa-list" />} />
+      <BackgroundImg src="background_img.png" />
       <CardList
         month={month}
         cards={filteredCards}

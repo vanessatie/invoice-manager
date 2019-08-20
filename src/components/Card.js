@@ -13,6 +13,7 @@ const StyledCard = styled.div`
   border: 1px solid #bfc0c0;
   border-radius: 2px;
   box-shadow: 2px 2px 0px #bfc0c0;
+  background-color: white;
 `;
 
 const StyledDate = styled.div`
@@ -26,25 +27,33 @@ const StyledCompany = styled.div`
 const StyledAmount = styled.div`
   font-weight: bold;
   justify-self: end;
+  color: black;
 `;
 
-const StyledImage = styled.img`
-  max-height: 40px;
-  max-width: 40px;
-  align-self: center;
+const StyledPaid = styled.div`
+  justify-self: start;
+  color: #79c99e;
 `;
 
-function Card({ _id, date, file, company, amount, onClick, ...props }) {
+const StyledUnpaid = styled.div`
+  justify-self: start;
+  color: #ef8354;
+`;
+
+function Card({ _id, date, file, company, amount, paid, onClick, ...props }) {
   return (
     <StyledCard key={_id} onClick={onClick} {...props}>
-      <StyledImage
-        src={
-          file
-            ? file
-            : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2000px-No_image_available.svg.png"
-        }
-        alt={company}
-      />
+      <StyledPaid>
+        {paid === true ? (
+          <StyledPaid>
+            <i className="fas fa-check" /> paid
+          </StyledPaid>
+        ) : (
+          <StyledUnpaid>
+            <i className="fas fa-exclamation" /> unpaid
+          </StyledUnpaid>
+        )}
+      </StyledPaid>
       <StyledDate>
         {date}
         <StyledCompany>{company}</StyledCompany>
@@ -62,7 +71,6 @@ Card.propTypes = {
   company: PropTypes.string,
   amount: PropTypes.string,
   _id: PropTypes.string,
-  file: PropTypes.string,
   onClick: PropTypes.func
 };
 

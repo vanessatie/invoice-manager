@@ -3,9 +3,14 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Button from "../components/Button";
+import BackgroundImg from "../components/BackgroundImage";
+import { Document, pdfjs } from "react-pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
+  pdfjs.version
+}/pdf.worker.js`;
 
 const StyledContainer = styled.div`
-  padding: 30px;
+  padding: 20px;
   display: grid;
   grid-gap: 5px;
   font-size: 1rem;
@@ -13,6 +18,15 @@ const StyledContainer = styled.div`
 
 const StyledDate = styled.div`
   justify-self: flex-start;
+`;
+
+const StyledPaid = styled.div`
+  justify-self: flex-end;
+  color: #79c99e;
+`;
+const StyledUnpaid = styled.div`
+  justify-self: flex-end;
+  color: #ef8354;
 `;
 
 const StyledCompany = styled.div`
@@ -51,6 +65,12 @@ const StyledAlert = styled.div`
   box-shadow: 2px 2px 0px #bfc0c0;
 `;
 
+const StyledPreviewButton = styled.a`
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+`;
+
 function Details({ cards, match, history, onDelete }) {
   const card = cards && cards.find(card => card._id === match.params.id);
   const [showDialog, setShowDialog] = React.useState(false);
@@ -78,8 +98,21 @@ function Details({ cards, match, history, onDelete }) {
         title="Details"
         headerIcon={<i className="fas fa-search-plus" />}
       />
+      <BackgroundImg src="background_img.png" />
       <StyledContainer>
         <StyledDate>{card.date}</StyledDate>
+        <StyledPaid>
+          {card.paid === true ? (
+            <StyledPaid>
+              <i className="fas fa-check" /> paid
+            </StyledPaid>
+          ) : (
+            <StyledUnpaid>
+              <i className="fas fa-exclamation" /> unpaid
+            </StyledUnpaid>
+          )}
+        </StyledPaid>
+
         <StyledCompany>{card.company}</StyledCompany>
         <StyledProject>{card.project}</StyledProject>
         <StyledAmount>{card.amount.replace(".", ",")} €</StyledAmount>
@@ -92,6 +125,13 @@ function Details({ cards, match, history, onDelete }) {
           }
           alt={card.company}
         />
+        {card.file && card.file.endsWith(".pdf") ? (
+          <Document file={card.file} />
+        ) : (
+          <StyledPreviewButton href={card.file} target="_blank">
+            <Button>Detailansicht</Button>
+          </StyledPreviewButton>
+        )}
         {showDialog && (
           <StyledAlert>
             Soll die Rechnung wirklich gelöscht werden?
@@ -105,7 +145,6 @@ function Details({ cards, match, history, onDelete }) {
             </ButtonGroup>
           </StyledAlert>
         )}
-
         <ButtonGroup>
           <Button onClick={() => setShowDialog(true)} kind="cancel">
             Löschen

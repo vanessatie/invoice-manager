@@ -28,6 +28,11 @@ function Footer() {
           <i className="fas fa-list" />
         </StyledIcon>
       </Link>
+      <Link to="/search">
+        <StyledIcon>
+          <i className="fas fa-search" />
+        </StyledIcon>
+      </Link>
       <Link to="/add">
         <StyledIcon>
           <i className="fas fa-plus" />

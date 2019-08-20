@@ -7,9 +7,12 @@
     "dinero.js": "^1.6.0",
     "docz": "^1.2.0",
     "docz-theme-default": "^1.2.0",
+    "fuse": "^0.4.0",
+    "fuse.js": "^3.4.5",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-pdf": "^4.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "styled-components": "^4.3.2"

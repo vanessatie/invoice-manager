@@ -28,7 +28,9 @@ const StyledButton = styled.button`
   border: 1px solid;
   ${getColor};
   &:disabled {
-    background-color: #bfc0c0;
+    color: #bfc0c0;
+    border-color: #bfc0c0;
+    background-color: #f2f5f5;
   }
 `;
 
