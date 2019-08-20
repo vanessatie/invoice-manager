@@ -14,21 +14,14 @@ const StyledForm = styled.form`
 const StyledInput = styled.input`
   width: 100%;
   border-radius: 15px;
-  padding: 7px 20px 7px 20px;
-
+  padding: 8px 20px 8px 20px;
   height: auto;
   border: 1px solid lightgrey;
   background-color: white;
   font-family: Arial, Helvetica, sans-serif;
   color: #2d3142;
-
-  padding-left: 5px;
-  ::placeholder {
-    color: #bfc0c0;
-  }
-  input[type="file"] {
-    display: none;
-  }
+  padding-left: 15px;
+  font-size: 0.8rem;
 `;
 
 const StyledCheckbox = styled.input`
@@ -36,7 +29,6 @@ const StyledCheckbox = styled.input`
   float: right;
   margin-right: 8px;
   background-color: white;
-  height: auto;
 `;
 
 const StyledLabel = styled.label`
@@ -91,7 +83,7 @@ function Form({ history, onCreate, match, cards }) {
       paid: paid,
       file: image || (itemToEdit && itemToEdit.file)
     };
-    console.log(itemToEdit.paid);
+
     onCreate(card, history);
   }
 
@@ -137,7 +129,6 @@ function Form({ history, onCreate, match, cards }) {
   function handlePaid(event) {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
-    //const name = target.name;
 
     setPaid(value);
     console.log(value);
@@ -202,9 +193,8 @@ function Form({ history, onCreate, match, cards }) {
           <StyledCheckbox
             type="checkbox"
             name="isPaid"
-            checked={paid}
+            defaultChecked={(itemToEdit && itemToEdit.paid) || paid}
             onChange={handlePaid}
-            defaultValue={itemToEdit && itemToEdit.paid}
           />
           Bezahlt ?
         </StyledCheckboxLabel>

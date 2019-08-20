@@ -128,7 +128,7 @@ function Details({ cards, match, history, onDelete }) {
         {card.file && card.file.endsWith(".pdf") ? (
           <Document file={card.file} />
         ) : (
-          <StyledPreviewButton href={card.file}>
+          <StyledPreviewButton href={card.file} target="_blank">
             <Button>Detailansicht</Button>
           </StyledPreviewButton>
         )}

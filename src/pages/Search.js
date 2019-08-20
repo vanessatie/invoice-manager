@@ -20,7 +20,7 @@ const StyledSearchbar = styled.input`
   background-color: white;
 `;
 
-function Search({ cards, history, onCardClick }) {
+function Search({ cards, history }) {
   const [input, setInput] = React.useState("");
 
   function handleChange(event) {
@@ -35,7 +35,7 @@ function Search({ cards, history, onCardClick }) {
     location: 0,
     distance: 100,
     maxPatternLength: 32,
-    minMatchCharLength: 3,
+    minMatchCharLength: 2,
     keys: ["company", "project", "amount"]
   };
   let fuse = new Fuse(cards, options);
@@ -49,8 +49,9 @@ function Search({ cards, history, onCardClick }) {
       <Card
         key={result.item._id}
         company={result.item.company}
-        amount={result.item.amount.replace(".", ",")}
+        amount={result.item.amount}
         date={result.item.date}
+        paid={result.item.paid}
         onClick={() => handleCardClick(result.item)}
       />
     );

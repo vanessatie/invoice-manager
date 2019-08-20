@@ -11,7 +11,15 @@ const StyledCardList = styled.div`
 
 const StyledButton = styled.button`
   align-self: center;
-  padding: 10px;
+  border-radius: 15px;
+  margin: 20px 10px 10px 10px;
+  padding: 7px 20px 7px 20px;
+  height: auto;
+  width: auto;
+  background-color: white;
+  font-weight: bold;
+  border: 1px solid #bfc0c0;
+  box-shadow: 2px 2px 0px #bfc0c0;
 `;
 
 const StyledDropDown = styled.select`
@@ -74,7 +82,6 @@ function CardList({ cards, onCardClick, month, onMonthSelect }) {
 CardList.propTypes = {
   cards: PropTypes.array.isRequired,
   onCardClick: PropTypes.func.isRequired,
-  month: PropTypes.number,
   onMonthSelect: PropTypes.func
 };
 
