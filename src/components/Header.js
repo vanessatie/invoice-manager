@@ -8,6 +8,7 @@ const StyledHeader = styled.div`
   justify-content: center;
   background-color: #4281a4;
   color: #fff;
+  height: 50px;
 `;
 
 const Headline = styled.h1`

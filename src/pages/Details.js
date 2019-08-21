@@ -98,7 +98,7 @@ function Details({ cards, match, history, onDelete }) {
         title="Details"
         headerIcon={<i className="fas fa-search-plus" />}
       />
-      <BackgroundImg src="background_img.png" />
+
       <StyledContainer>
         <StyledDate>{card.date}</StyledDate>
         <StyledPaid>
@@ -115,7 +115,7 @@ function Details({ cards, match, history, onDelete }) {
 
         <StyledCompany>{card.company}</StyledCompany>
         <StyledProject>{card.project}</StyledProject>
-        <StyledAmount>{card.amount.replace(".", ",")} €</StyledAmount>
+        <StyledAmount>{card.amount} €</StyledAmount>
         <br />
         <StyledImage
           src={

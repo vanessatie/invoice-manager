@@ -7,7 +7,7 @@ import axios from "axios";
 import BackgroundImg from "../components/BackgroundImage";
 
 const StyledForm = styled.form`
-  padding: 20px;
+  padding: 10px 20px 20px 20px;
   display: grid;
   grid-gap: 10px;
 `;
@@ -80,7 +80,7 @@ function Form({ history, onCreate, match, cards }) {
       company: form.inputName.value,
       project: form.inputProject.value,
       amount: form.inputAmount.value,
-      paid: paid,
+      paid: paid || (itemToEdit && itemToEdit.paid),
       file: image || (itemToEdit && itemToEdit.file)
     };
 
