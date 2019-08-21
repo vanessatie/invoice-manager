@@ -84,7 +84,8 @@ function Details({ cards, match, history, onDelete }) {
   }
 
   function handleDeleteConfirmation() {
-    onDelete(cards.findIndex(item => card === item));
+    onDelete(card._id);
+    //alternativ: onDelete(cards.findIndex(item => card === item));
     history.push("/");
   }
 

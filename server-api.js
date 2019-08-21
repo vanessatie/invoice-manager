@@ -21,5 +21,8 @@ module.exports = function(app) {
 
   app.delete("/api/cards/:id", (req, res) => {
     const { id } = req.params;
+    Card.findByIdAndRemove(id)
+      .then(card => res.json({ success: true }))
+      .catch(err => res.json(err));
   });
 };

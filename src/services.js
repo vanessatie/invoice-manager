@@ -28,6 +28,6 @@ function fetchCard(method, data, id = "") {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(data)
+    body: data ? JSON.stringify(data) : undefined
   }).then(res => res.json());
 }

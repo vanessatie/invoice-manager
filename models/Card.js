@@ -8,7 +8,7 @@ const cardSchema = new mongoose.Schema({
   company: String,
   project: String,
   amount: {
-    type: Number,
+    type: String,
     required: true
   },
   paid: {

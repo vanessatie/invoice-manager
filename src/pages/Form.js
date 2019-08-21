@@ -146,7 +146,7 @@ function Form({ history, onCreate, match, cards }) {
           )
         }
       />
-      <BackgroundImg src="background_img.png" />
+
       <StyledForm onSubmit={handleSubmit}>
         <StyledLabel>
           Eingangsdatum:

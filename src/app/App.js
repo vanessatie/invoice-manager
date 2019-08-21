@@ -29,19 +29,22 @@ function App() {
   function handleCreate(card, history) {
     postCard(card).then(result => setCards([result, ...cards]));
 
-    history.replace(`/detail/${card._id}`);
+    history.push(`/`);
   }
 
-  function handleDeleteCard(index) {
-    deleteCard(index).then(
-      setCards([...cards.slice(0, index), ...cards.slice(index + 1)])
-    );
+  function handleDeleteCard(id) {
+    deleteCard(id).then(result => {
+      const index = cards.findIndex(card => card._id === id);
+      setCards([...cards.splice(0, index), ...cards.splice(index + 1)]);
+    });
   }
 
   function handleEdit(card, history) {
-    const index = cards.findIndex(item => item._id === card._id);
-    setCards([...cards.slice(0, index), card, ...cards.slice(index + 1)]);
-
+    console.log(card);
+    patchCard(card, card._id).then(result => {
+      const index = cards.findIndex(item => item._id === card._id);
+      setCards([...cards.slice(0, index), result, ...cards.slice(index + 1)]);
+    });
     history.replace(`/detail/${card._id}`);
   }
 
