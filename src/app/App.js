@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Cards from "../pages/Cards";
 import Form from "../pages/Form";
 import Search from "../pages/Search";
-import { getFromLocal, setToLocal } from "../services";
-import uuid from "uuid/v1";
+import { getCards, postCard, deleteCard, patchCard } from "../services";
+
 import Footer from "../components/Footer";
 import Details from "../pages/Details";
 import Dinero from "dinero.js";
@@ -14,24 +14,30 @@ Dinero.defaultCurrency = "EUR";
 Dinero.globalLocale = "de-DE";
 
 function App() {
-  const [cards, setCards] = React.useState(getFromLocal("cards") || []);
-  React.useEffect(() => setToLocal("cards", cards), [cards]);
+  const [cards, setCards] = React.useState([]);
+  React.useEffect(() => {
+    getCards().then(result => setCards(result));
+  }, []);
 
   function handleCreate(card, history) {
-    const newCard = { _id: uuid(), ...card };
-    setCards([newCard, ...cards]);
+    postCard(card).then(result => setCards([result, ...cards]));
 
-    history.replace(`/detail/${newCard._id}`);
+    history.push(`/`);
   }
 
-  function handleDeleteCard(index) {
-    setCards([...cards.slice(0, index), ...cards.slice(index + 1)]);
+  function handleDeleteCard(id) {
+    deleteCard(id).then(result => {
+      const index = cards.findIndex(card => card._id === id);
+      setCards([...cards.splice(0, index), ...cards.splice(index + 1)]);
+    });
   }
 
   function handleEdit(card, history) {
-    const index = cards.findIndex(item => item._id === card._id);
-    setCards([...cards.slice(0, index), card, ...cards.slice(index + 1)]);
-
+    console.log(card);
+    patchCard(card, card._id).then(result => {
+      const index = cards.findIndex(item => item._id === card._id);
+      setCards([...cards.slice(0, index), result, ...cards.slice(index + 1)]);
+    });
     history.replace(`/detail/${card._id}`);
   }
 
