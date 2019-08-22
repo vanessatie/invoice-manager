@@ -4,10 +4,6 @@ import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import BackgroundImg from "../components/BackgroundImage";
-import { Document, pdfjs } from "react-pdf";
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
-  pdfjs.version
-}/pdf.worker.js`;
 
 const StyledContainer = styled.div`
   padding: 20px;
@@ -99,7 +95,7 @@ function Details({ cards, match, history, onDelete }) {
         title="Details"
         headerIcon={<i className="fas fa-search-plus" />}
       />
-
+      <BackgroundImg src="/background_img.png" />
       <StyledContainer>
         <StyledDate>{card.date}</StyledDate>
         <StyledPaid>
@@ -116,23 +112,31 @@ function Details({ cards, match, history, onDelete }) {
 
         <StyledCompany>{card.company}</StyledCompany>
         <StyledProject>{card.project}</StyledProject>
-        <StyledAmount>{card.amount} €</StyledAmount>
+        <StyledAmount>{card.amount.replace(".", ",")} €</StyledAmount>
         <br />
-        <StyledImage
-          src={
-            card.file
-              ? card.file
-              : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2000px-No_image_available.svg.png"
-          }
-          alt={card.company}
-        />
         {card.file && card.file.endsWith(".pdf") ? (
-          <Document file={card.file} />
+          <StyledImage
+            src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg"
+            style={{ width: 100 }}
+          />
         ) : (
+          <StyledImage
+            src={
+              card.file
+                ? card.file
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2000px-No_image_available.svg.png"
+            }
+            alt={card.company}
+          />
+        )}
+        {card.file ? (
           <StyledPreviewButton href={card.file} target="_blank">
             <Button>Detailansicht</Button>
           </StyledPreviewButton>
+        ) : (
+          <div />
         )}
+
         {showDialog && (
           <StyledAlert>
             Soll die Rechnung wirklich gelöscht werden?

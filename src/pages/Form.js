@@ -3,8 +3,8 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Button from "../components/Button";
-import axios from "axios";
 import BackgroundImg from "../components/BackgroundImage";
+import axios from "axios";
 
 const StyledForm = styled.form`
   padding: 10px 20px 20px 20px;
@@ -22,13 +22,14 @@ const StyledInput = styled.input`
   color: #2d3142;
   padding-left: 15px;
   font-size: 0.8rem;
+  ::placeholder {
+    color: lightgrey;
+  }
 `;
 
 const StyledCheckbox = styled.input`
   display: block;
   float: right;
-  margin-right: 8px;
-  background-color: white;
 `;
 
 const StyledLabel = styled.label`
@@ -43,10 +44,8 @@ const StyledCheckboxLabel = styled.label`
 `;
 
 const StyledImage = styled.img`
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  align-self: center;
+  max-width: 50%;
+  justify-self: center;
 `;
 
 const ButtonGroup = styled.div`
@@ -131,7 +130,6 @@ function Form({ history, onCreate, match, cards }) {
     const value = target.type === "checkbox" ? target.checked : target.value;
 
     setPaid(value);
-    console.log(value);
   }
 
   return (
@@ -146,7 +144,7 @@ function Form({ history, onCreate, match, cards }) {
           )
         }
       />
-
+      <BackgroundImg src="/background_img.png" />
       <StyledForm onSubmit={handleSubmit}>
         <StyledLabel>
           Eingangsdatum:
@@ -163,7 +161,8 @@ function Form({ history, onCreate, match, cards }) {
           <StyledInput
             name="inputName"
             defaultValue={(itemToEdit && itemToEdit.company) || ""}
-            placeholder="z.B. Holzland GmbH"
+            placeholder="Firmenname"
+            required
           />
         </StyledLabel>
         <StyledLabel>
@@ -174,6 +173,7 @@ function Form({ history, onCreate, match, cards }) {
             placeholder="Projektname"
             name="inputProject"
             defaultValue={(itemToEdit && itemToEdit.project) || ""}
+            required
           />
         </StyledLabel>
         <StyledLabel>
@@ -182,7 +182,7 @@ function Form({ history, onCreate, match, cards }) {
             name="inputAmount"
             type="number"
             step="0.01"
-            placeholder="z.B. 123.45"
+            placeholder="Betrag in Euro"
             defaultValue={(itemToEdit && itemToEdit.amount) || ""}
             id="amount"
             required
@@ -204,17 +204,23 @@ function Form({ history, onCreate, match, cards }) {
           <div>
             {image || (itemToEdit && itemToEdit.file) ? (
               <StyledImage
-                src={image || (itemToEdit && itemToEdit.file)}
+                src={
+                  image || (itemToEdit && itemToEdit.file)
+                    ? image.endsWith(".pdf") ||
+                      (itemToEdit && itemToEdit.file.endsWith(".pdf"))
+                      ? "https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg"
+                      : image || (itemToEdit && itemToEdit.file)
+                    : image || (itemToEdit && itemToEdit.file)
+                }
                 alt="Keine Vorschau verfügbar"
               />
             ) : (
               <StyledInput
                 type="file"
-                name="file[]"
+                name="file"
                 id="upload"
                 onChange={uploadImage}
                 accept="image/*,.pdf"
-                multiple
               />
             )}
           </div>
@@ -228,7 +234,6 @@ function Form({ history, onCreate, match, cards }) {
               id="upload"
               onChange={uploadImage}
               accept="image/*,.pdf"
-              multiple
             />
           </div>
         ) : (

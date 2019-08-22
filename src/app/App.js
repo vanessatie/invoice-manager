@@ -4,15 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Cards from "../pages/Cards";
 import Form from "../pages/Form";
 import Search from "../pages/Search";
-import {
-  getFromLocal,
-  setToLocal,
-  getCards,
-  postCard,
-  deleteCard,
-  patchCard
-} from "../services";
-import uuid from "uuid/v1";
+import { getCards, postCard, deleteCard, patchCard } from "../services";
+
 import Footer from "../components/Footer";
 import Details from "../pages/Details";
 import Dinero from "dinero.js";

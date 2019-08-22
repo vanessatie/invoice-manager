@@ -12,5 +12,6 @@ body {
     color: #2d3142;
     font-size: 0.8rem;
     margin-bottom: 60px;
+    /*background-image: url('../public/background_img.png')*/
 }
 `;

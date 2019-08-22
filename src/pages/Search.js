@@ -6,7 +6,7 @@ import BackgroundImg from "../components/BackgroundImage";
 import Fuse from "fuse.js";
 
 const StyledContainer = styled.div`
-  padding: 20px;
+  padding: 20px 20px 10px 20px;
   display: grid;
   grid-gap: 5px;
 `;
@@ -18,10 +18,13 @@ const StyledSearchbar = styled.input`
   height: auto;
   border: 1px solid lightgrey;
   background-color: white;
+  ::placeholder {
+    color: lightgray;
+  }
 `;
 
 function Search({ cards, history }) {
-  const [input, setInput] = React.useState("");
+  const [input, setInput] = React.useState("xxx");
 
   function handleChange(event) {
     const value = event.target.value;
@@ -31,7 +34,7 @@ function Search({ cards, history }) {
   let options = {
     shouldSort: true,
     includeScore: true,
-    threshold: 0.6,
+    threshold: 0.2,
     location: 0,
     distance: 100,
     maxPatternLength: 32,
@@ -63,11 +66,12 @@ function Search({ cards, history }) {
       <StyledContainer>
         <StyledSearchbar
           type="search"
-          placeholder="Suchbegriff eingeben"
+          placeholder="Suchbegriff eingeben..."
           onChange={handleChange}
+          minLength="3"
         />
-        <div>{result.map(renderCard)}</div>
       </StyledContainer>
+      <div>{result.map(renderCard)}</div>
     </>
   );
 }
