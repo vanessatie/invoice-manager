@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 const color = {
   cancel: `
@@ -12,7 +11,11 @@ const color = {
   color: #79C99E;
   `,
   neutral: `border-color: #bfc0c0;
-  color: #bfc0c0;`
+  color: #bfc0c0;
+  `,
+  category: `border-color: #4281a4;
+  color: #4281a4;
+  `
 };
 
 const getColor = ({ kind = "neutral" }) => color[kind];
@@ -33,12 +36,6 @@ const StyledButton = styled.button`
     background-color: #f2f5f5;
   }
 `;
-
-export const LinkButton = ({ children, to }) => (
-  <Link to={to}>
-    <StyledButton />
-  </Link>
-);
 
 const Button = ({ children, ...props }) => (
   <StyledButton {...props}>{children}</StyledButton>

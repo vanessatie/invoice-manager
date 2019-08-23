@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Card from "../components/Card";
 import BackgroundImg from "../components/BackgroundImage";
 import Fuse from "fuse.js";
+import StyledInput from "../components/Input";
 
 const StyledContainer = styled.div`
   padding: 20px 20px 10px 20px;
@@ -11,20 +13,8 @@ const StyledContainer = styled.div`
   grid-gap: 5px;
 `;
 
-const StyledSearchbar = styled.input`
-  width: 100%;
-  border-radius: 15px;
-  padding: 7px 20px 7px 20px;
-  height: auto;
-  border: 1px solid lightgrey;
-  background-color: white;
-  ::placeholder {
-    color: lightgray;
-  }
-`;
-
 function Search({ cards, history }) {
-  const [input, setInput] = React.useState("xxx");
+  const [input, setInput] = React.useState("");
 
   function handleChange(event) {
     const value = event.target.value;
@@ -39,13 +29,13 @@ function Search({ cards, history }) {
     distance: 100,
     maxPatternLength: 32,
     minMatchCharLength: 2,
-    keys: ["company", "project", "amount"]
+    keys: ["company", "project", "amount", "category"]
   };
   let fuse = new Fuse(cards, options);
   let result = fuse.search(input);
 
   function handleCardClick(card) {
-    history.replace(`/detail/${card._id}`);
+    history.push(`/detail/${card._id}`);
   }
   function renderCard(result) {
     return (
@@ -64,7 +54,7 @@ function Search({ cards, history }) {
       <Header title="Suche" headerIcon={<i className="fas fa-search" />} />
       <BackgroundImg src="background_img.png" />
       <StyledContainer>
-        <StyledSearchbar
+        <StyledInput
           type="search"
           placeholder="Suchbegriff eingeben..."
           onChange={handleChange}
@@ -76,4 +66,8 @@ function Search({ cards, history }) {
   );
 }
 
+Search.propTypes = {
+  cards: PropTypes.array.isRequired,
+  history: PropTypes.object
+};
 export default Search;

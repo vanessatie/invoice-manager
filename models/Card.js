@@ -7,6 +7,7 @@ const cardSchema = new mongoose.Schema({
   },
   company: String,
   project: String,
+  category: String,
   amount: {
     type: String,
     required: true

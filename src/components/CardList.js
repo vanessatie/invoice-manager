@@ -22,9 +22,9 @@ const StyledButton = styled.button`
   box-shadow: 2px 2px 0px #bfc0c0;
 `;
 
-const StyledDropDown = styled.select`
-  justify-self: center;
-  text-align: end;
+const StyledMonthSelect = styled.select`
+  text-align: center;
+  text-align-last: center;
   font-weight: bold;
   font-size: 0.9rem;
 `;
@@ -49,7 +49,7 @@ function CardList({ cards, onCardClick, month, onMonthSelect }) {
   return (
     <StyledCardList>
       <StyledButton>
-        <StyledDropDown
+        <StyledMonthSelect
           name="month"
           value={month}
           onChange={event => onMonthSelect(event)}
@@ -67,7 +67,7 @@ function CardList({ cards, onCardClick, month, onMonthSelect }) {
           <option value="10">Oktober</option>
           <option value="11">November</option>
           <option value="12">Dezember</option>
-        </StyledDropDown>
+        </StyledMonthSelect>
         <i className="fas fa-chevron-down" />
       </StyledButton>
 
@@ -82,6 +82,7 @@ function CardList({ cards, onCardClick, month, onMonthSelect }) {
 CardList.propTypes = {
   cards: PropTypes.array.isRequired,
   onCardClick: PropTypes.func.isRequired,
+  month: PropTypes.number,
   onMonthSelect: PropTypes.func
 };
 

@@ -1,0 +1,23 @@
+---
+name: Calculation
+menu: Components
+---
+
+import { Props, Playground } from "docz";
+import { TaxCalculation, SumCalculation } from "./Calculation";
+import GlobalStyles from "../app/GlobalStyles";
+import App from "../app/App.js";
+import mockData from "../pages/__mock__/cards.json";
+
+<GlobalStyles />
+
+# Calculation
+
+<Props of={(TaxCalculation, SumCalculation)} />
+
+## Basic Usage
+
+<Playground>
+  <TaxCalculation cards={mockData} />
+  <SumCalculation cards={mockData} />
+</Playground>

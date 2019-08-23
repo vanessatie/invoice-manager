@@ -33,12 +33,11 @@ function App() {
   }
 
   function handleEdit(card, history) {
-    console.log(card);
     patchCard(card, card._id).then(result => {
       const index = cards.findIndex(item => item._id === card._id);
       setCards([...cards.slice(0, index), result, ...cards.slice(index + 1)]);
     });
-    history.replace(`/detail/${card._id}`);
+    history.push(`/detail/${card._id}`);
   }
 
   return (
