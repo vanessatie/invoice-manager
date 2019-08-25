@@ -119,7 +119,7 @@ function Form({ history, onCreate, match, cards }) {
   }
 
   const [category, setCategory] = React.useState(
-    (itemToEdit && itemToEdit.category) || 0
+    (itemToEdit && itemToEdit.category) || "Material"
   );
   function onCategorySelect(event) {
     setCategory(event.target.value);
@@ -184,6 +184,7 @@ function Form({ history, onCreate, match, cards }) {
             <option value="Anderes">Anderes</option>
           </StyledDropDown>
         </StyledLabel>
+
         <StyledLabel>
           Rechnungsbetrag:
           <StyledInput
@@ -212,13 +213,20 @@ function Form({ history, onCreate, match, cards }) {
           <div>
             {image || (itemToEdit && itemToEdit.file) ? (
               <StyledImage
-                src={
+                /*src={
                   image || (itemToEdit && itemToEdit.file)
                     ? image.endsWith(".pdf") ||
                       (itemToEdit && itemToEdit.file.endsWith(".pdf"))
                       ? "https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg"
                       : image || (itemToEdit && itemToEdit.file)
                     : image || (itemToEdit && itemToEdit.file)
+                }*/
+                src={
+                  image || (itemToEdit && itemToEdit.file) ? (
+                    image || (itemToEdit && itemToEdit.file)
+                  ) : (
+                    <div />
+                  )
                 }
                 alt="Keine Vorschau verfügbar"
               />

@@ -60,9 +60,11 @@ const StyledAlert = styled.div`
   font-weight: bold;
   padding: 10px;
   margin: 5px 20px 10px 0;
+  width: 100%;
   border: 1px solid #bfc0c0;
   border-radius: 2px;
   box-shadow: 2px 2px 0px #bfc0c0;
+  background-color: white;
 `;
 
 const StyledPreviewButton = styled.a`

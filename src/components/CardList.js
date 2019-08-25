@@ -82,7 +82,6 @@ function CardList({ cards, onCardClick, month, onMonthSelect }) {
 CardList.propTypes = {
   cards: PropTypes.array.isRequired,
   onCardClick: PropTypes.func.isRequired,
-  month: PropTypes.number,
   onMonthSelect: PropTypes.func
 };
 
