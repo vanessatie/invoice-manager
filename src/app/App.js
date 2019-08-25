@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Cards from "../pages/Cards";
 import Form from "../pages/Form";
 import Search from "../pages/Search";
+import Landing from "../pages/Landing";
 import { getCards, postCard, deleteCard, patchCard } from "../services";
 
 import Footer from "../components/Footer";
@@ -23,7 +24,7 @@ function App() {
   function handleCreate(card, history) {
     postCard(card).then(result => setCards([result, ...cards]));
 
-    history.push(`/`);
+    history.push(`/overview`);
   }
 
   function handleDeleteCard(id) {
@@ -70,9 +71,10 @@ function App() {
           />
 
           <Route
-            path="/"
+            path="/overview"
             render={props => <Cards cards={cards} {...props} />}
           />
+          <Route path="/" render={props => <Landing {...props} />} />
         </Switch>
         <Footer />
       </ScrollToTop>

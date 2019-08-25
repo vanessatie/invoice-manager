@@ -213,14 +213,6 @@ function Form({ history, onCreate, match, cards }) {
           <div>
             {image || (itemToEdit && itemToEdit.file) ? (
               <StyledImage
-                /*src={
-                  image || (itemToEdit && itemToEdit.file)
-                    ? image.endsWith(".pdf") ||
-                      (itemToEdit && itemToEdit.file.endsWith(".pdf"))
-                      ? "https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg"
-                      : image || (itemToEdit && itemToEdit.file)
-                    : image || (itemToEdit && itemToEdit.file)
-                }*/
                 src={
                   image || (itemToEdit && itemToEdit.file) ? (
                     image || (itemToEdit && itemToEdit.file)

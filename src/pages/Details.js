@@ -87,7 +87,7 @@ function Details({ cards, match, history, onDelete }) {
 
   function handleDeleteConfirmation() {
     onDelete(card._id);
-    history.push("/");
+    history.push("/overview");
   }
 
   function handleEdit() {
