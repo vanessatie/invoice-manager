@@ -25,6 +25,11 @@ function Footer() {
     <StyledFooter>
       <Link to="/">
         <StyledIcon>
+          <i className="fas fa-home"></i>
+        </StyledIcon>
+      </Link>
+      <Link to="/overview">
+        <StyledIcon>
           <i className="fas fa-list" />
         </StyledIcon>
       </Link>

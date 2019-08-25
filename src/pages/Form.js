@@ -4,27 +4,13 @@ import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import BackgroundImg from "../components/BackgroundImage";
+import { StyledInput, StyledDropDown } from "../components/Input";
 import axios from "axios";
 
 const StyledForm = styled.form`
   padding: 10px 20px 20px 20px;
   display: grid;
   grid-gap: 10px;
-`;
-const StyledInput = styled.input`
-  width: 100%;
-  border-radius: 15px;
-  padding: 8px 20px 8px 20px;
-  height: auto;
-  border: 1px solid lightgrey;
-  background-color: white;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #2d3142;
-  padding-left: 15px;
-  font-size: 0.8rem;
-  ::placeholder {
-    color: lightgrey;
-  }
 `;
 
 const StyledCheckbox = styled.input`
@@ -78,11 +64,11 @@ function Form({ history, onCreate, match, cards }) {
       date: form.inputDate.value,
       company: form.inputName.value,
       project: form.inputProject.value,
+      category: category || (itemToEdit && itemToEdit.category),
       amount: form.inputAmount.value,
       paid: paid || (itemToEdit && itemToEdit.paid),
       file: image || (itemToEdit && itemToEdit.file)
     };
-
     onCreate(card, history);
   }
 
@@ -132,6 +118,13 @@ function Form({ history, onCreate, match, cards }) {
     setPaid(value);
   }
 
+  const [category, setCategory] = React.useState(
+    (itemToEdit && itemToEdit.category) || "Material"
+  );
+  function onCategorySelect(event) {
+    setCategory(event.target.value);
+  }
+
   return (
     <>
       <Header
@@ -177,6 +170,22 @@ function Form({ history, onCreate, match, cards }) {
           />
         </StyledLabel>
         <StyledLabel>
+          Kategorie: (bitte auswählen)
+          <StyledDropDown
+            value={category}
+            name="inputCategory"
+            onChange={event => onCategorySelect(event)}
+            placeholder="Bitte wählen"
+            required
+          >
+            <option value="Material">Material</option>
+            <option value="Büromaterial">Büromaterial</option>
+            <option value="Maschinen">Maschinen</option>
+            <option value="Anderes">Anderes</option>
+          </StyledDropDown>
+        </StyledLabel>
+
+        <StyledLabel>
           Rechnungsbetrag:
           <StyledInput
             name="inputAmount"
@@ -205,12 +214,11 @@ function Form({ history, onCreate, match, cards }) {
             {image || (itemToEdit && itemToEdit.file) ? (
               <StyledImage
                 src={
-                  image || (itemToEdit && itemToEdit.file)
-                    ? image.endsWith(".pdf") ||
-                      (itemToEdit && itemToEdit.file.endsWith(".pdf"))
-                      ? "https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg"
-                      : image || (itemToEdit && itemToEdit.file)
-                    : image || (itemToEdit && itemToEdit.file)
+                  image || (itemToEdit && itemToEdit.file) ? (
+                    image || (itemToEdit && itemToEdit.file)
+                  ) : (
+                    <div />
+                  )
                 }
                 alt="Keine Vorschau verfügbar"
               />
@@ -255,7 +263,13 @@ function Form({ history, onCreate, match, cards }) {
 }
 
 Form.propTypes = {
+  history: PropTypes.object,
   onCreate: PropTypes.func,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.node
+    })
+  }),
   cards: PropTypes.array.isRequired
 };
 

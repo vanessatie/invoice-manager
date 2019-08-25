@@ -50,7 +50,8 @@ function Cards({ cards, history }) {
 }
 
 Cards.propTypes = {
-  cards: PropTypes.array.isRequired
+  cards: PropTypes.array.isRequired,
+  history: PropTypes.object
 };
 
 export default Cards;

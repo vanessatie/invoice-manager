@@ -60,17 +60,18 @@ function Card({ _id, date, file, company, amount, paid, onClick, ...props }) {
       </StyledDate>
       <StyledAmount>
         <br />
-        {amount.replace(".", ".")} €
+        {amount} €
       </StyledAmount>
     </StyledCard>
   );
 }
 
 Card.propTypes = {
-  date: PropTypes.string,
+  date: PropTypes.string.isRequired,
   company: PropTypes.string,
-  amount: PropTypes.string,
-  _id: PropTypes.string,
+  file: PropTypes.string,
+  amount: PropTypes.string.isRequired,
+  paid: PropTypes.bool,
   onClick: PropTypes.func
 };
 

@@ -35,6 +35,10 @@ const StyledProject = styled.div`
   padding: 10px 15px 5px 15px;
 `;
 
+const StyledCategory = styled(Button)`
+  width: 40%;
+`;
+
 const StyledAmount = styled.div`
   justify-self: flex-end;
   font-weight: bold;
@@ -56,9 +60,11 @@ const StyledAlert = styled.div`
   font-weight: bold;
   padding: 10px;
   margin: 5px 20px 10px 0;
+  width: 100%;
   border: 1px solid #bfc0c0;
   border-radius: 2px;
   box-shadow: 2px 2px 0px #bfc0c0;
+  background-color: white;
 `;
 
 const StyledPreviewButton = styled.a`
@@ -76,13 +82,12 @@ function Details({ cards, match, history, onDelete }) {
   }
 
   function handleBack() {
-    history.push("/");
+    history.goBack();
   }
 
   function handleDeleteConfirmation() {
     onDelete(card._id);
-    //alternativ: onDelete(cards.findIndex(item => card === item));
-    history.push("/");
+    history.push("/overview");
   }
 
   function handleEdit() {
@@ -112,6 +117,7 @@ function Details({ cards, match, history, onDelete }) {
 
         <StyledCompany>{card.company}</StyledCompany>
         <StyledProject>{card.project}</StyledProject>
+        <StyledCategory kind="category">{card.category}</StyledCategory>
         <StyledAmount>{card.amount.replace(".", ",")} €</StyledAmount>
         <br />
         {card.file && card.file.endsWith(".pdf") ? (
@@ -158,7 +164,7 @@ function Details({ cards, match, history, onDelete }) {
             Bearbeiten
           </Button>
           <Button onClick={handleBack} kind="submit">
-            Übersicht
+            Zurück
           </Button>
         </ButtonGroup>
       </StyledContainer>
@@ -168,7 +174,13 @@ function Details({ cards, match, history, onDelete }) {
 
 Details.propTypes = {
   cards: PropTypes.array.isRequired,
-  onDelete: PropTypes.func
+  history: PropTypes.object,
+  onDelete: PropTypes.func,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.node
+    })
+  })
 };
 
 export default Details;
